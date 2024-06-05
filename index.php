@@ -29,8 +29,6 @@
     <div class="d-flex flex-row-reverse">
         <button type="button" class="btn btn-primary">Создать</button>
     </div>
-
-
 </div>
 
 <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php') ?>
