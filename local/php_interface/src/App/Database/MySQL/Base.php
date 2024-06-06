@@ -20,6 +20,24 @@ abstract class Base extends AbstractModel
         $this->port = $credentials->port;
         $this->connection = $this->createConnection();
         $this->tableName = $this->getTableName();
+
+        $this->query = $this->instantiateQuery();
+    }
+
+    private function instantiateQuery(): object
+    {
+        $query = [
+            'select' => (object)['fields' => []],
+            'insert' => (object)['fields' => []],
+            'update' => (object)['fields' => []],
+            'delete' => (object)['fields' => []],
+            'where' => (object)['fields' => []],
+            'join' => (object)['type' => '', 'ref' => ''],
+            'limit' => 0,
+            'offset' => 0,
+        ];
+
+        return (object)$query;
     }
 
     /**
