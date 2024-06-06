@@ -1,5 +1,5 @@
 .idea
 /local/php_interface/lib/vendor/
 test*
-/local/log/*
+/local/log/
 *.log
