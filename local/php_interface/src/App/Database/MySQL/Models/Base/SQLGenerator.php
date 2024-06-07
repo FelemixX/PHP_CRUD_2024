@@ -110,6 +110,9 @@ final readonly class SQLGenerator
      */
     final public function generateWhere(): string
     {
+        if (empty($this->query->where->fields)) {
+            return '';
+        }
         $sql = ' WHERE ';
         $joinIsEmpty = empty($this->query->join);
 
@@ -130,7 +133,7 @@ final readonly class SQLGenerator
                 default => $conditionOperator,
             };
 
-            $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator $conditionRight" : "$conditionLeft $replacedOperator $conditionRight";
+            $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator ?" : "$conditionLeft $replacedOperator ?";
         }
 
         $conditionsString = implode(' AND ', $conditionsArray);

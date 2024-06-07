@@ -19,7 +19,7 @@ abstract class AbstractModel extends AbstractConnection
     abstract public function insert(array $fields): static;
     abstract public function update(array $fields): static;
     abstract public function delete(array $fields): static;
-    abstract public function sort(array $fields): static;
+    abstract public function order(array $fields): static;
     abstract public function where(array $fields): static;
     abstract public function join(string $type, string $table, string $reference, string $value): static;
     abstract public function limit(int $limit): static;

@@ -69,7 +69,10 @@ abstract class BaseModel extends Base
      */
     public function insert(array $fields): static
     {
-        SQLDataHelper::checkAssocArray($fields, '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]');
+        SQLDataHelper::checkAssocArray(
+            $fields,
+            '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]'
+        );
         if (!empty($this->query->select->fields) || !empty($this->query->update->fields) || !empty($this->query->delete->fields)) {
             throw new \Exception('Updating while SELECT OR UPDATE OR DELETE is active are forbidden');
         }
@@ -88,7 +91,10 @@ abstract class BaseModel extends Base
      */
     public function update(array $fields): static
     {
-        SQLDataHelper::checkAssocArray($fields, '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]');
+        SQLDataHelper::checkAssocArray(
+            $fields,
+            '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]'
+        );
         if (!empty($this->query->select->fields) || !empty($this->query->insert->fields) || !empty($this->query->delete->fields)) {
             throw new \Exception('Updating while SELECT OR INSERT OR DELETE is active are forbidden');
         }
@@ -107,7 +113,10 @@ abstract class BaseModel extends Base
      */
     public function delete(array $fields): static
     {
-        SQLDataHelper::checkAssocArray($fields, '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]');
+        SQLDataHelper::checkAssocArray(
+            $fields,
+            '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]'
+        );
         if (!empty($this->query->select->fields) || !empty($this->query->insert->fields) || !empty($this->query->update->fields)) {
             throw new \Exception('Updating while SELECT OR INSERT OR UPDATE is active are forbidden');
         }
@@ -126,7 +135,10 @@ abstract class BaseModel extends Base
      */
     public function where(array $fields): static
     {
-        SQLDataHelper::checkAssocArray($fields, '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]');
+        SQLDataHelper::checkAssocArray(
+            $fields,
+            '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]'
+        );
 
         foreach ($fields as $column => $value) {
             $this->query->where->fields[$column] = $value;
@@ -179,9 +191,8 @@ abstract class BaseModel extends Base
      * @return $this
      * @throws \Exception
      */
-    public function sort(array $fields): static
+    public function order(array $fields): static
     {
-
         if (SQLDataHelper::checkAssocArray($fields)) {
             foreach ($fields as $column => $value) {
                 $this->query->sort->fields[$column] = $value;
@@ -209,7 +220,17 @@ abstract class BaseModel extends Base
             return $this;
         }
 
-        $query =  $this->connection->query($sql);
+        if (!empty($this->query->where->fields)) {
+            $query = $this->connection->prepare($sql);
+            $filterValues = array_values($this->query->where->fields);
+            $filterValues = array_map(fn($value): string => empty($value) ? 'NULL' : $value, $filterValues);
+
+            $this->dbResult = $query->execute($filterValues);
+
+            return $this;
+        }
+
+        $this->dbResult = $this->connection->query($sql);
 
         return $this;
     }
@@ -248,8 +269,6 @@ abstract class BaseModel extends Base
      */
     private function generateSql(): string
     {
-        $sql = '';
-
         if (!empty($this->query->select->fields)) {
             return $this->generateSqlCaseSelect();
         }
@@ -272,7 +291,6 @@ abstract class BaseModel extends Base
         $offsetSql = $sqlGenerator->generateOffset();
         $whereSql = $sqlGenerator->generateWhere();
         $groupSql = $sqlGenerator->generateOrder();
-
 
         $sql .= $selectSql . $joinSql . $whereSql . $groupSql . $limitSql . $offsetSql;
 
