@@ -32,6 +32,7 @@ abstract class Base extends AbstractModel
             'update' => (object)['fields' => []],
             'delete' => (object)['fields' => []],
             'where' => (object)['fields' => []],
+            'sort' => (object)['fields' => []],
             'join' => (object)['type' => '', 'ref' => ''],
             'limit' => 0,
             'offset' => 0,
