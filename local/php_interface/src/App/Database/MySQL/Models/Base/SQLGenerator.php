@@ -72,6 +72,34 @@ final readonly class SQLGenerator
 
     /**
      * @return string
+     * @throws \Exception
+     */
+    final public function generateOrder(): string
+    {
+        if (empty($this->query->sort->fields)) {
+            return ' ORDER BY ID ASC';
+        }
+
+        $sql = ' ORDER BY ';
+
+        $ordersArray = [];
+        if (SQLDataHelper::checkAssocArray($this->query->sort->fields)) {
+            foreach ($this->query->sort->fields as $field => $order) {
+                $ordersArray[] = "$field $order";
+            }
+        } else {
+            foreach ($this->query->sort->fields as $order) {
+                $ordersArray[] = "$order";
+            }
+        }
+
+
+        $orderSql = implode(', ', $ordersArray);
+        return $sql . $orderSql;
+    }
+
+    /**
+     * @return string
      */
     final public function generateLimit(): string
     {

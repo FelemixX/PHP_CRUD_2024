@@ -176,10 +176,15 @@ abstract class BaseModel extends Base
      */
     public function sort(array $fields): static
     {
-        SQLDataHelper::checkAssocArray($fields, '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]');
 
-        foreach ($fields as $column => $value) {
-            $this->query->sort->fields[$column] = $value;
+        if (SQLDataHelper::checkAssocArray($fields)) {
+            foreach ($fields as $column => $value) {
+                $this->query->sort->fields[$column] = $value;
+            }
+        } else {
+            foreach ($fields as $value) {
+                $this->query->sort->fields[] = $value;
+            }
         }
 
         return $this;
@@ -224,9 +229,10 @@ abstract class BaseModel extends Base
         $limitSql = $sqlGenerator->generateLimit();
         $offsetSql = $sqlGenerator->generateOffset();
         $whereSql = $sqlGenerator->generateWhere();
+        $groupSql = $sqlGenerator->generateOrder();
 
 
-        $sql .= $selectSql . $whereSql . $limitSql . $offsetSql;
+        $sql .= $selectSql . $whereSql . $groupSql . $limitSql . $offsetSql;
 
         return $sql;
     }
