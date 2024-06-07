@@ -34,44 +34,4 @@ abstract class AbstractModel extends AbstractConnection
     {
         throw new \Exception('You must override table name');
     }
-
-    /**
-     * @param array $fields
-     * @return void
-     * @throws \Exception
-     */
-    protected function checkRequiredFields(array $fields): void
-    {
-        if (!in_array('ID', $fields)) {
-            if (!in_array('*', $fields)) {
-                throw new \Exception('ID must be selected');
-            }
-        }
-
-        foreach ($fields as $field) {
-            if (is_array($field)) {
-                throw new \Exception('Array of arrays is not supported');
-            }
-        }
-    }
-
-    /**
-     * @param array $fields
-     * @param string $exception
-     * @return bool
-     * @throws \Exception
-     */
-    protected function checkAssocArray(array $fields, string $exception = ''): bool
-    {
-        if ($fields === []) {
-            return true;
-        }
-        $isAssoc = array_keys($fields) === range(0, count($fields) - 1);
-
-        if ($isAssoc) {
-            return true;
-        }
-
-        throw new \Exception($exception);
-    }
 }
