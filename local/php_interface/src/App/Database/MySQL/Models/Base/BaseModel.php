@@ -12,6 +12,25 @@ abstract class BaseModel extends Base
     public function __construct()
     {
         parent::__construct(new Credentials());
+
+        $this->query = $this->instantiateQuery();
+    }
+
+    private function instantiateQuery(): object
+    {
+        $query = [
+            'select' => (object)['fields' => []],
+            'insert' => (object)['fields' => []],
+            'update' => (object)['fields' => []],
+            'delete' => (object)['fields' => []],
+            'where' => (object)['fields' => []],
+            'sort' => (object)['fields' => []],
+            'join' => (object)['type' => '', 'ref' => ''],
+            'limit' => 0,
+            'offset' => 0,
+        ];
+
+        return (object)$query;
     }
 
     /**
@@ -203,7 +222,10 @@ abstract class BaseModel extends Base
 
         $selectSql = $sqlGenerator->generateSelect();
         $limitSql = $sqlGenerator->generateLimit();
-        $sql .= $selectSql . $limitSql;
+        $offsetSql = $sqlGenerator->generateOffset();
+
+
+        $sql .= $selectSql . $limitSql . $offsetSql;
 
         return $sql;
     }
