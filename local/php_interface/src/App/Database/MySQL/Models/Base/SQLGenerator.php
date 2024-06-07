@@ -14,43 +14,25 @@ final readonly class SQLGenerator
      */
     final public function generateSelect(): string
     {
-        $sql = 'SELECT';
+        $sql = 'SELECT ';
         $from = ' FROM ' . $this->tableName;
 
         if (SQLDataHelper::checkAssocArray($this->query->select->fields)) {
-            $lastKey = array_key_last($this->query->select->fields);
-
+            $selectFields = [];
             foreach ($this->query->select->fields as $field => $value) {
                 $as = strval($field);
 
-                if ($field === $lastKey) {
-                    if (is_numeric($field)) {
-                        $sql .= " $value";
-                    } else {
-                        $sql .= " $value AS $as";
-                    }
-                } else {
-                    if (is_numeric($field)) {
-                        $sql .= " $value,";
-                    } else {
-                        $sql .= " $value AS $as,";
-                    }
-                }
+                $selectFields[] = is_numeric($field) ? $value : "$value AS $as";
             }
 
-            return $sql . $from;
+            $selection = implode(', ', $selectFields);
+
+            return $sql . $selection . $from;
         }
 
-        $lastKey = array_key_last($this->query->select->fields);
-        foreach ($this->query->select->fields as $key => $field) {
-            if ($key === $lastKey) {
-                $sql .= " $field";
-            } else {
-                $sql .= " $field,";
-            }
-        }
+        $selection = implode(', ', $this->query->select->fields);
 
-        return $sql . $from;
+        return $sql . $selection . $from;
     }
 
     /**
