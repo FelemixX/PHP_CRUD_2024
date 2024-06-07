@@ -223,9 +223,10 @@ abstract class BaseModel extends Base
         $selectSql = $sqlGenerator->generateSelect();
         $limitSql = $sqlGenerator->generateLimit();
         $offsetSql = $sqlGenerator->generateOffset();
+        $whereSql = $sqlGenerator->generateWhere();
 
 
-        $sql .= $selectSql . $limitSql . $offsetSql;
+        $sql .= $selectSql . $whereSql . $limitSql . $offsetSql;
 
         return $sql;
     }

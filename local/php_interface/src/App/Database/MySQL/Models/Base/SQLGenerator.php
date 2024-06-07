@@ -19,6 +19,7 @@ final readonly class SQLGenerator
 
         if (SQLDataHelper::checkAssocArray($this->query->select->fields)) {
             $lastKey = array_key_last($this->query->select->fields);
+
             foreach ($this->query->select->fields as $field => $value) {
                 $as = strval($field);
 
@@ -53,6 +54,41 @@ final readonly class SQLGenerator
     }
 
     /**
+     * @throws \Exception
+     */
+    final public function generateWhere(): string
+    {
+        $sql = ' WHERE ';
+
+        $conditionsArray = [];
+        foreach ($this->query->where->fields as $condition => $conditionRight) {
+
+            $conditionOperator = SQLDataHelper::parseConditionOperator($condition);
+            if (!$conditionOperator) {
+                throw new \Exception('Condition operator is not valid');
+            }
+
+            if (empty($conditionRight)) {
+                $conditionRight = 'null';
+            }
+
+            $conditionLeft = ltrim($condition, $conditionOperator);
+            $replacedOperator = match($conditionOperator) {
+                '!', '!=' => '<>',  //Обратная совместимость, все дела
+                default => $conditionOperator,
+            };
+
+            $conditionsArray[] = "$conditionLeft $replacedOperator $conditionRight";
+        }
+
+        $conditionsString = implode(' AND ', $conditionsArray);
+
+        $sql .= $conditionsString;
+
+        return $sql;
+    }
+
+    /**
      * @return string
      */
     final public function generateLimit(): string
@@ -62,6 +98,20 @@ final readonly class SQLGenerator
         }
 
         $sql = ' LIMIT ' . $this->query->limit;
+
+        return $sql;
+    }
+
+    /**
+     * @return string
+     */
+    final public function generateOffset(): string
+    {
+        if ($this->query->offset === 0) {
+            return '';
+        }
+
+        $sql = ' OFFSET ' . $this->query->offset;
 
         return $sql;
     }

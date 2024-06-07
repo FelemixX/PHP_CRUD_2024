@@ -47,4 +47,47 @@ class SQLDataHelper
         }
         return false;
     }
+
+    public static function parseConditionOperator(string $condition): false|string
+    {
+        switch ($condition) {
+            case str_contains($condition, '>'):
+                $condOperator = '>';
+                break;
+            case str_contains($condition, '<'):
+                $condOperator = '<';
+                break;
+            case str_contains($condition, '<>'):
+                $condOperator = '<>';
+                break;
+            case str_contains($condition, '!='):
+                $condOperator = '!=';
+                break;
+            case str_contains($condition, '!'):
+                $condOperator = '!';
+                break;
+            case str_contains($condition, '<='):
+                $condOperator = '<=';
+                break;
+            case str_contains($condition, '>='):
+                $condOperator = '>=';
+                break;
+            case str_contains($condition, '='):
+                $condOperator = '=';
+                break;
+            case str_contains($condition, 'BETWEEN '):
+                $condOperator = 'BETWEEN';
+                break;
+            case str_contains($condition, 'LIKE '):
+                $condOperator = 'LIKE';
+                break;
+            case str_contains($condition, 'IN '):
+                $condOperator = 'IN';
+                break;
+            default:
+                $condOperator = false;
+        }
+
+        return $condOperator;
+    }
 }
