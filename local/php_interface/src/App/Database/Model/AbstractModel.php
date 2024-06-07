@@ -15,15 +15,15 @@ abstract class AbstractModel extends AbstractConnection
     public const JOIN_TYPE_RIGHT = 'RIGHT JOIN';
     public const JOIN_TYPE_CROSS = 'CROSS JOIN';
 
-    abstract public function select(array $fields): static; //Done
+    abstract public function select(array $fields): static;
     abstract public function insert(array $fields): static;
     abstract public function update(array $fields): static;
     abstract public function delete(array $fields): static;
-    abstract public function sort(array $fields): static; //Done
-    abstract public function where(array $fields): static; //Done
-    abstract public function join(string $type, string $table, string $reference, string $value): static; //Done
-    abstract public function limit(int $limit): static; //Done
-    abstract public function offset(int $offset): static; //Done
+    abstract public function sort(array $fields): static;
+    abstract public function where(array $fields): static;
+    abstract public function join(string $type, string $table, string $reference, string $value): static;
+    abstract public function limit(int $limit): static;
+    abstract public function offset(int $offset): static;
 
     abstract public function exec(): object;
 

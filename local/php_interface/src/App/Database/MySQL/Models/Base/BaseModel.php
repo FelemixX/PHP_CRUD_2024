@@ -9,6 +9,8 @@ use App\Helper\SQLDataHelper;
 
 abstract class BaseModel extends Base
 {
+    private mixed $dbResult;
+
     public function __construct()
     {
         parent::__construct(new Credentials());
@@ -201,7 +203,43 @@ abstract class BaseModel extends Base
     {
         $sql = $this->generateSql();
 
-        return $this->connection->query($sql);
+        if (!empty($this->query->insert->fields) || !empty($this->query->delete->fields) || !empty($this->query->update->fields)) {
+            $this->executeBindingQuery($sql);
+
+            return $this;
+        }
+
+        $query =  $this->connection->query($sql);
+
+        return $this;
+    }
+
+    private function executeBindingQuery(string $sql): void
+    {
+        $db = $this->connection->prepare($sql);
+        switch ($this->query) {
+            case !empty($this->query->insert->fields):
+                $db->execute(array_values($this->query->insert->fields));
+                break;
+            case !empty($this->query->delete->fields):
+                $db->execute(array_values($this->query->delete->fields));
+                break;
+            case !empty($this->query->update->fields):
+                if (empty($this->query->where->fields)) {
+                    throw new \Exception('Updating without condition is forbidden');
+                }
+                $db->execute(array_values($this->query->update->fields));
+                break;
+        }
+
+        $this->dbResult = $db;
+    }
+
+    public function getResult(): mixed
+    {
+        $this->query = $this->instantiateQuery();
+
+        return $this->dbResult;
     }
 
     /**
@@ -213,17 +251,17 @@ abstract class BaseModel extends Base
         $sql = '';
 
         if (!empty($this->query->select->fields)) {
-            $sql = $this->generateSqlCaseSelect();
+            return $this->generateSqlCaseSelect();
         }
 
-        return $sql;
+        return $this->generateSqlCaseModify();
     }
 
     /**
      * @return string
      * @throws \Exception
      */
-    public function generateSqlCaseSelect(): string
+    private function generateSqlCaseSelect(): string
     {
         $sqlGenerator = new SQLGenerator($this->query, $this->tableName);
         $sql = '';
@@ -237,6 +275,29 @@ abstract class BaseModel extends Base
 
 
         $sql .= $selectSql . $joinSql . $whereSql . $groupSql . $limitSql . $offsetSql;
+
+        return $sql;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    private function generateSqlCaseModify(): string
+    {
+        $sqlGenerator = new SQLGenerator($this->query, $this->tableName);
+
+        switch ($this->query) {
+            case !empty($this->query->insert->fields):
+                $sql = $sqlGenerator->generateInsert();
+                break;
+            case !empty($this->query->delete->fields):
+                $sql = $sqlGenerator->generateDelete();
+                break;
+            case !empty($this->query->update->fields):
+                $sql = $sqlGenerator->generateUpdate();
+                break;
+        }
 
         return $sql;
     }

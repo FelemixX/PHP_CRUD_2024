@@ -48,6 +48,10 @@ class SQLDataHelper
         return false;
     }
 
+    /**
+     * @param string $condition
+     * @return false|string
+     */
     public static function parseConditionOperator(string $condition): false|string
     {
         switch ($condition) {
@@ -89,5 +93,57 @@ class SQLDataHelper
         }
 
         return $condOperator;
+    }
+
+    /**
+     * @param array $conditions
+     * @return string
+     * @throws \Exception
+     */
+    public static function generateBindConditionsString(array $conditions): string
+    {
+        $conditionsArray = [];
+        foreach ($conditions as $condition => $conditionRight) {
+            $conditionOperator = static::parseConditionOperator($condition);
+            if (!$conditionOperator) {
+                throw new \Exception('Condition operator is not valid');
+            }
+
+            $conditionLeft = ltrim($condition, $conditionOperator);
+            $replacedOperator = match ($conditionOperator) {
+                '!', '!=' => '<>',  //Обратная совместимость, все дела
+                default => $conditionOperator,
+            };
+
+            $conditionsArray[] = "$conditionLeft $replacedOperator ?";
+        }
+
+        return implode(' AND ', $conditionsArray);
+    }
+
+    /**
+     * @param array $conditions
+     * @return string
+     * @throws \Exception
+     */
+    public static function generateConditionsString(array $conditions): string
+    {
+        $conditionsArray = [];
+        foreach ($conditions as $condition => $conditionRight) {
+            $conditionOperator = static::parseConditionOperator($condition);
+            if (!$conditionOperator) {
+                throw new \Exception('Condition operator is not valid');
+            }
+
+            $conditionLeft = ltrim($condition, $conditionOperator);
+            $replacedOperator = match ($conditionOperator) {
+                '!', '!=' => '<>',  //Обратная совместимость, все дела
+                default => $conditionOperator,
+            };
+
+            $conditionsArray[] = "$conditionLeft $replacedOperator '$conditionRight'";
+        }
+
+        return implode(' AND ', $conditionsArray);
     }
 }

@@ -6,7 +6,9 @@ use App\Helper\SQLDataHelper;
 
 final readonly class SQLGenerator
 {
-    final public function __construct(private object $query, private string $tableName) {}
+    final public function __construct(private object $query, private string $tableName)
+    {
+    }
 
     /**
      * @return string
@@ -26,7 +28,7 @@ final readonly class SQLGenerator
                 if (!$joinIsEmpty && !preg_match('/^\w+\./', $value)) { //Используем JOIN и в названии поля не указано названии таблицы. В таком случае по умолчанию считаем, что забираем данные не из присоединенной таблицы
                     $selectFields[] = is_numeric($field) ? "$this->tableName.$value" : "$this->tableName.$value AS $as";
                 } else {
-                    $selectFields[] = is_numeric($field) ? "$value" :  "$value AS $as";
+                    $selectFields[] = is_numeric($field) ? "$value" : "$value AS $as";
                 }
             }
 
@@ -38,6 +40,52 @@ final readonly class SQLGenerator
         $selection = implode(', ', $this->query->select->fields);
 
         return $sql . $selection . $from;
+    }
+
+    /**
+     * @return string
+     */
+    final public function generateInsert(): string
+    {
+        $sql = "INSERT INTO $this->tableName ";
+
+        $fields = implode(', ', array_keys($this->query->insert->fields));
+
+        $values = str_repeat('?, ', count(array_values((array)$this->query->insert->fields))); //Чтобы использовать prepare и добавлять данные безопасно
+        $values = rtrim($values, ', ');
+
+        $sql .= "($fields) VALUES ($values)";
+
+        return $sql;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    final public function generateDelete(): string
+    {
+        $sql = "DELETE FROM $this->tableName WHERE ";
+
+        $sql .= SQLDataHelper::generateBindConditionsString($this->query->delete->fields);
+
+        return $sql;
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    final public function generateUpdate(): string
+    {
+        $sql = "UPDATE $this->tableName SET ";
+
+        $fields = implode(' = ?, ', array_keys($this->query->update->fields)) . ' = ?';
+        $conditionsString = SQLDataHelper::generateConditionsString($this->query->where->fields);
+
+        $sql .= $fields . ' WHERE ' . $conditionsString;
+
+        return $sql;
     }
 
     /**
@@ -67,7 +115,6 @@ final readonly class SQLGenerator
 
         $conditionsArray = [];
         foreach ($this->query->where->fields as $condition => $conditionRight) {
-
             $conditionOperator = SQLDataHelper::parseConditionOperator($condition);
             if (!$conditionOperator) {
                 throw new \Exception('Condition operator is not valid');
@@ -78,7 +125,7 @@ final readonly class SQLGenerator
             }
 
             $conditionLeft = ltrim($condition, $conditionOperator);
-            $replacedOperator = match($conditionOperator) {
+            $replacedOperator = match ($conditionOperator) {
                 '!', '!=' => '<>',  //Обратная совместимость, все дела
                 default => $conditionOperator,
             };
@@ -118,8 +165,8 @@ final readonly class SQLGenerator
             }
         }
 
-
         $orderSql = implode(', ', $ordersArray);
+
         return $sql . $orderSql;
     }
 
