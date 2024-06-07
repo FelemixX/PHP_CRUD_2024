@@ -25,7 +25,7 @@ abstract class BaseModel extends Base
             'delete' => (object)['fields' => []],
             'where' => (object)['fields' => []],
             'sort' => (object)['fields' => []],
-            'join' => (object)['type' => '', 'ref' => ''],
+            'join' => [],
             'limit' => 0,
             'offset' => 0,
         ];
@@ -133,16 +133,19 @@ abstract class BaseModel extends Base
         return $this;
     }
 
-    public function join(string $type, string $ref, string $value): static
+    public function join(string $type, string $table, string $reference, string $value): static
     {
-        if ($type !== AbstractModel::JOIN_TYPE_CROSS && $type !== AbstractModel::JOIN_TYPE_LEFT && $type !== AbstractModel::JOIN_TYPE_RIGHT && $type !== AbstractModel::JOIN_TYPE_INNER) {
+        if ($type !== AbstractModel::JOIN_TYPE_CROSS && $type !== AbstractModel::JOIN_TYPE_LEFT && $type !== AbstractModel::JOIN_TYPE_RIGHT && $type !== AbstractModel::JOIN_TYPE_INNER && $type !== AbstractModel::JOIN_TYPE_STANDARD) {
             $class = AbstractModel::class;
             throw new \Exception("Invalid join type $type. Join type must be instance of $class");
         }
 
-        $this->query->join->type = $type;
-        $this->query->join->ref = $ref;
-        $this->query->join->value = $value;
+        $this->query->join[] = [
+            'type' => $type,
+            'table' => $table,
+            'reference' => $reference,
+            'value' => $value,
+        ];
 
         return $this;
     }
@@ -226,13 +229,14 @@ abstract class BaseModel extends Base
         $sql = '';
 
         $selectSql = $sqlGenerator->generateSelect();
+        $joinSql = $sqlGenerator->generateJoin();
         $limitSql = $sqlGenerator->generateLimit();
         $offsetSql = $sqlGenerator->generateOffset();
         $whereSql = $sqlGenerator->generateWhere();
         $groupSql = $sqlGenerator->generateOrder();
 
 
-        $sql .= $selectSql . $whereSql . $groupSql . $limitSql . $offsetSql;
+        $sql .= $selectSql . $joinSql . $whereSql . $groupSql . $limitSql . $offsetSql;
 
         return $sql;
     }
