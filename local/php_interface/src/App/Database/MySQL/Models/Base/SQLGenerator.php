@@ -23,10 +23,10 @@ final readonly class SQLGenerator
             foreach ($this->query->select->fields as $field => $value) {
                 $as = strval($field);
 
-                if (!$joinIsEmpty && !preg_match('/\w+\./', $value)) { //Используем JOIN и в названии поля не указано названии таблицы. В таком случае по умолчанию считаем, что забираем данные не из присоединенной таблицы
-                    $selectFields[] = is_numeric($field) ? $this->tableName . ".$value" : $this->tableName . ".$value AS $as";
+                if (!$joinIsEmpty && !preg_match('/^\w+\./', $value)) { //Используем JOIN и в названии поля не указано названии таблицы. В таком случае по умолчанию считаем, что забираем данные не из присоединенной таблицы
+                    $selectFields[] = is_numeric($field) ? "$this->tableName.$value" : "$this->tableName.$value AS $as";
                 } else {
-                    $selectFields[] = is_numeric($field) ? $value : $this->tableName . "$value AS $as";
+                    $selectFields[] = is_numeric($field) ? "$value" :  "$value AS $as";
                 }
             }
 
@@ -83,7 +83,7 @@ final readonly class SQLGenerator
                 default => $conditionOperator,
             };
 
-            $conditionsArray[] = !$joinIsEmpty && !preg_match('/\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator $conditionRight" : "$conditionLeft $replacedOperator $conditionRight";
+            $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator $conditionRight" : "$conditionLeft $replacedOperator $conditionRight";
         }
 
         $conditionsString = implode(' AND ', $conditionsArray);
@@ -110,11 +110,11 @@ final readonly class SQLGenerator
 
         if (SQLDataHelper::checkAssocArray($this->query->sort->fields)) {
             foreach ($this->query->sort->fields as $field => $order) {
-                $ordersArray[] = !$joinIsEmpty && !preg_match('/\w+\./', $order) ? "$this->tableName.$field $order" : "$field $order";
+                $ordersArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $order) ? "$this->tableName.$field $order" : "$field $order";
             }
         } else {
             foreach ($this->query->sort->fields as $order) {
-                $ordersArray[] = !$joinIsEmpty && !preg_match('/\w+\./', $order) ? "$this->tableName.$order" : $order;
+                $ordersArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $order) ? "$this->tableName.$order" : $order;
             }
         }
 
