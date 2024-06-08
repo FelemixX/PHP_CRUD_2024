@@ -19,6 +19,15 @@
     <script src="/local/templates/default/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
 
     <!-- /bootstrap -->
+    <script src="/local/templates/default/assets/js/main.js"></script>
+
+    <?php
+    $requestUri = $_SERVER['REQUEST_URI'];
+    $path = preg_replace('/\/\w+\.php$/', '', parse_url($requestUri, PHP_URL_PATH));
+    ?>
+    <?php if (!empty($path) && file_exists($_SERVER['DOCUMENT_ROOT'] . $path . 'script.js')): ?>
+        <script src="<?= $path ?>/script.js"></script>
+    <?php endif; ?>
 
     <title>CRUD</title>
 </head>
@@ -26,7 +35,7 @@
 <header>
     <nav class="navbar navbar-expand-lg bg-success" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/">CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
                     aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation"
             >
@@ -35,16 +44,9 @@
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                        <a class="nav-link" aria-current="page" href="/client/">
+                            Clients
+                        </a>
                     </li>
                 </ul>
             </div>

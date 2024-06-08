@@ -235,6 +235,11 @@ abstract class BaseModel extends Base
         return $this;
     }
 
+    /**
+     * @param string $sql
+     * @return void
+     * @throws \Exception
+     */
     private function executeBindingQuery(string $sql): void
     {
         $db = $this->connection->prepare($sql);
@@ -256,7 +261,10 @@ abstract class BaseModel extends Base
         $this->dbResult = $db;
     }
 
-    public function getResult(): mixed
+    /**
+     * @return mixed
+     */
+    public function get(): mixed
     {
         $this->query = $this->instantiateQuery();
 
