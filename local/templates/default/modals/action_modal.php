@@ -9,13 +9,16 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form type="multipart/form-data">
                             <?php foreach ($modalRows as $idx => $row): ?>
                                 <div class="mb-3" data-value-row-number="<?= $idx ?>">
                                     <label for="<?= $row ?>-table-value" class="col-form-label">
                                         <?= $row ?>:
                                     </label>
-                                    <input type="text" placeholder="" class="form-control" id="<?= $row ?>-table-value" <?= $row == 'ID' ? 'disabled' : '' ?>>
+                                    <input type="text" placeholder="" class="form-control"
+                                           id="<?= $row ?>-table-value" <?= $row == 'ID' ? 'data-primary' : '' ?> <?= $row == 'ID' ? 'disabled' : '' ?>
+                                           name="<?= $row ?>" required
+                                    >
                                 </div>
                             <?php endforeach; ?>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

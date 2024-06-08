@@ -6,6 +6,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         modalForm.addEventListener('submit', event => {
             event.preventDefault();
+            const target = event.target;
+            if (!target?.dataset?.id || !target?.dataset?.action) {
+                return;
+            }
+
+            const dataset = target.dataset;
+            const formData = new FormData(target);
+
+            formData.append('ID', dataset.id);
+            formData.append('ACTION', dataset.action);
+
+            let requestType = '';
+            switch (dataset.action) {
+                case 'update':
+                    requestType = 'PATCH';
+                    break;
+                case 'delete':
+                    requestType = 'DELETE';
+                    break;
+                case 'create':
+                    requestType = 'POST';
+                    break;
+            }
+
+            processAjaxRequest(requestType, formData);
         });
 
         modal.addEventListener('show.bs.modal', event => {
@@ -27,19 +52,27 @@ document.addEventListener("DOMContentLoaded", () => {
             modalForm.dataset.action = action;
             modalForm.dataset.id = entityId;
 
-            const rowsValues = actionButton?.closest('tr')?.querySelectorAll('[data-value-row-number]');
+            if (action !== 'delete') {
+                const rowsValues = actionButton?.closest('tr')?.querySelectorAll('[data-value-row-number]');
 
-            if (rowsValues) {
-                const rowsValuesModal = modal.querySelectorAll('[data-value-row-number]');
+                if (rowsValues) {
+                    const rowsValuesModal = modal.querySelectorAll('[data-value-row-number]');
 
-                rowsValues.forEach((element) => {
-                    rowsValuesModal.forEach((modalElement) => {
-                        if (modalElement.dataset.valueRowNumber === element.dataset.valueRowNumber) {
-                            modalElement.querySelector('input').placeholder = element.innerText;
-                        }
+                    rowsValues.forEach((element) => {
+                        rowsValuesModal.forEach((modalElement) => {
+                            if (modalElement.dataset.valueRowNumber === element.dataset.valueRowNumber) {
+                                modalElement.querySelector('input').placeholder = element.innerText;
+                            }
+                        });
                     });
-                });
+                }
+
+                return;
             }
+
+            modal.querySelectorAll('input:not([data-primary])').forEach(input => {
+                input.disabled = true;
+            });
         });
 
         modal.addEventListener('hide.bs.modal', () => {
@@ -47,17 +80,23 @@ document.addEventListener("DOMContentLoaded", () => {
             modal.querySelector('.modal-header h1').innerText = '';
             modalForm.dataset.action = '';
             modalForm.dataset.id = '';
+
+            modal.querySelectorAll('input:not([data-primary])').forEach(input => {
+                input.disabled = false;
+            });
         });
     }
 
-    function processAjaxRequest(requestType, action, data) {
-        if (!requestType || action || data || !ajaxPath) {
+    function processAjaxRequest(requestType, data) {
+        if (!requestType || !data || !ajaxPath) {
             return;
         }
 
-        if (requestType !== 'POST' || requestType !== 'DELETE' || requestType !== 'PATCH') {
+        if (requestType !== 'POST' && requestType !== 'DELETE' && requestType !== 'PATCH') {
             return;
         }
+
+        const action = data.get('ACTION');
 
         fetch(ajaxPath + action + '.php', {
             method: requestType,
@@ -66,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Content-Type": "application/json; charset=UTF-8",
             }
         })
-            .then((response) => response.json())
-            .then((data) => console.log(data))
+            .then((response) => console.log(response))
     }
 });
