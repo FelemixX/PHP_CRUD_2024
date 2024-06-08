@@ -54,7 +54,9 @@ $clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
             </tbody>
         </table>
         <div class="d-flex flex-row-reverse">
-            <button type="button" class="btn btn-primary" data-action="create" data-bs-title="Создать">
+            <button type="button" class="btn btn-primary" data-action="create" data-bs-title="Создать"
+                    data-bs-toggle="modal" data-bs-target="#tableActionModal"
+            >
                 Создать
             </button>
         </div>

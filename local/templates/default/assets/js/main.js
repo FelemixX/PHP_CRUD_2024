@@ -7,14 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
         modalForm.addEventListener('submit', event => {
             event.preventDefault();
             const target = event.target;
-            if (!target?.dataset?.id || !target?.dataset?.action) {
+            if (!target?.dataset?.action) {
+                return;
+            }
+
+            if (target.dataset.action !== 'create' && !target.dataset.id) {
                 return;
             }
 
             const dataset = target.dataset;
             const formData = new FormData(target);
 
-            formData.append('ID', dataset.id);
+            if (dataset?.id) {
+                formData.append('ID', dataset.id);
+            }
             formData.append('ACTION', dataset.action);
 
             let requestType = '';
@@ -36,14 +42,23 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.addEventListener('show.bs.modal', event => {
             const actionButton = event.relatedTarget;
             const dataset = actionButton?.dataset;
-            if (!dataset || !dataset?.id || !dataset?.action
+            if (!dataset || !dataset?.action
                 || dataset.action !== 'create' && dataset.action !== 'update'
                 && dataset.action !== 'delete'
             ) {
                 return;
             }
 
+            if (dataset?.action !== 'create' && !dataset?.id) {
+                return;
+            }
+
             modal.querySelector('.modal-header h1').innerText = actionButton?.innerText;
+            if (dataset?.action === 'create') {
+                modalForm.dataset.action = dataset?.action;
+                return;
+            }
+
             modal.querySelector('input:disabled').value = dataset.id;
 
             const action = dataset.action;
@@ -101,9 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(ajaxPath + action + '.php', {
             method: requestType,
             body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-            }
         })
             .then((response) => console.log(response))
     }
