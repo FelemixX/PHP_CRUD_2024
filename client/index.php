@@ -29,10 +29,10 @@ $clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
                     <th scope="row">
                         <?= $client['ID'] ?>
                     </th>
-                    <td class="border border-success">
+                    <td class="border border-success" data-value-row-number="1">
                         <?= $client['FULL_NAME'] ?>
                     </td>
-                    <td class="border border-success">
+                    <td class="border border-success" data-value-row-number="2">
                         <?= $client['PHONE_NUMBER'] ?>
                     </td>
                     <td class="border border-success">
@@ -62,5 +62,9 @@ $clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
 <?php else: ?>
     <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/empty.php' ?>
 <?php endif; ?>
+
+<script>
+    var ajaxPath = '/client/actions/';
+</script>
 
 <?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php') ?>
