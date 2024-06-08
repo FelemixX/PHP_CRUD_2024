@@ -36,14 +36,14 @@ $clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
                         <?= $client['PHONE_NUMBER'] ?>
                     </td>
                     <td class="border border-success">
-                        <button type="button" class="btn btn-primary" data-action="update" data-bs-title="Изменить" data-id="<?= $client['ID'] ?>"
+                        <button type="button" class="btn btn-success" data-action="update" data-bs-title="Изменить" data-id="<?= $client['ID'] ?>"
                                 data-bs-toggle="modal" data-bs-target="#tableActionModal"
                         >
                             Изменить
                         </button>
                     </td>
                     <td class="border border-success">
-                        <button type="button" class="btn btn-primary" data-action="delete" data-bs-title="Удалить" data-id="<?= $client['ID'] ?>"
+                        <button type="button" class="btn btn-danger" data-action="delete" data-bs-title="Удалить" data-id="<?= $client['ID'] ?>"
                                 data-bs-toggle="modal" data-bs-target="#tableActionModal"
                         >
                             Удалить
