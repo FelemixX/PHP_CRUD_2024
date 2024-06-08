@@ -113,9 +113,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const action = data.get('ACTION');
 
+        let jsonObject = {};
+        for (const [key, value]  of data.entries()) {
+            jsonObject[key] = value;
+        }
+
+        let jsonString = JSON.stringify(jsonObject);
+
         fetch(ajaxPath + action + '.php', {
             method: requestType,
-            body: JSON.stringify(data),
+            body: jsonString,
         })
             .then((response) => console.log(response))
     }

@@ -9,7 +9,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form type="multipart/form-data">
+                        <form>
                             <?php foreach ($modalRows as $idx => $row): ?>
                                 <div class="mb-3" data-value-row-number="<?= $idx ?>">
                                     <label for="<?= $row ?>-table-value" class="col-form-label">
