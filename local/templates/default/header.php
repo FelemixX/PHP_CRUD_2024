@@ -23,7 +23,7 @@
 
     <?php
     $requestUri = $_SERVER['REQUEST_URI'];
-    $path = preg_replace('/\/\w+\.php$/', '', parse_url($requestUri, PHP_URL_PATH));
+    $path = preg_replace('/\/\w+\.php$/', '', parse_url($requestUri, PHP_URL_PATH)); //Оставляем возможность подключать пользовательские скрипты
     ?>
     <?php if (!empty($path) && file_exists($_SERVER['DOCUMENT_ROOT'] . $path . 'script.js')): ?>
         <script src="<?= $path ?>/script.js"></script>

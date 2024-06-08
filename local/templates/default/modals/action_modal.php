@@ -12,7 +12,7 @@
                         <form>
                             <?php foreach ($modalRows as $row): ?>
                                 <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">
+                                    <label for="<?= $row ?>-table-value" class="col-form-label">
                                         <?= $row ?>:
                                     </label>
                                     <input type="text" class="form-control" id="<?= $row ?>-table-value" <?= $row == 'ID' ? 'disabled' : '' ?>>
