@@ -4,31 +4,39 @@
     <table class="table table-hover table-responsive border border-success text-center align-middle">
         <thead>
         <tr>
-            <td class="border border-success">#</td>
-            <td class="border border-success">2</td>
-            <td class="border border-success">3</td>
-            <td class="border border-success">4</td>
-            <td colspan="2">Действие</td>
+            <td class="border border-success fw-bold">#</td>
+            <td class="border border-success fw-bold">Сущность</td>
+            <td class="border border-success fw-bold">Таблицы</td>
+            <td class="fw-bold" colspan="2">Ссылка</td>
         </tr>
         </thead>
         <tbody>
         <tr>
             <th scope="row">1</th>
-            <td class="border border-success">Mark</td>
-            <td class="border border-success">Otto</td>
-            <td class="border border-success">@mdo</td>
+            <td class="border border-success">Client</td>
+            <td class="border border-success">client</td>
             <td class="border border-success">
-                <button type="button" class="btn btn-primary">Изменить</button>
+                <a href="/client/" class="btn btn-success">Перейти</a>
             </td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td class="border border-success">Product</td>
+            <td class="border border-success">product</td>
             <td class="border border-success">
-                <button type="button" class="btn btn-primary">Удалить</button>
+                <a href="/product/" class="btn btn-success">Перейти</a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td class="border border-success">ClientProduct</td>
+            <td class="border border-success">client_product</td>
+            <td class="border border-success">
+                <a href="/client-product/" class="btn btn-success">Перейти</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <div class="d-flex flex-row-reverse">
-        <button type="button" class="btn btn-primary">Создать</button>
-    </div>
 </div>
 
 <?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php') ?>
