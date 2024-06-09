@@ -66,16 +66,12 @@ $rows = $modalRows = array_keys($items[array_key_first($items)]);
                         <?= $item['PRODUCT_PRICE'] ?>
                     </td>
                     <td class="border border-success">
-                        <button type="button" class="btn btn-success" data-action="update" data-bs-title="Изменить" data-id="<?= $item['ID'] ?>"
-                                data-bs-toggle="modal" data-bs-target="#tableActionModal"
-                        >
+                        <button type="button" class="btn btn-success" disabled>
                             Изменить
                         </button>
                     </td>
                     <td class="border border-success">
-                        <button type="button" class="btn btn-danger" data-action="delete" data-bs-title="Удалить" data-id="<?= $item['ID'] ?>"
-                                data-bs-toggle="modal" data-bs-target="#tableActionModal"
-                        >
+                        <button type="button" class="btn btn-danger" disabled>
                             Удалить
                         </button>
                     </td>
@@ -84,9 +80,7 @@ $rows = $modalRows = array_keys($items[array_key_first($items)]);
             </tbody>
         </table>
         <div class="d-flex flex-row-reverse">
-            <button type="button" class="btn btn-primary" data-action="create" data-bs-title="Создать"
-                    data-bs-toggle="modal" data-bs-target="#tableActionModal"
-            >
+            <button type="button" class="btn btn-primary" disabled>
                 Создать
             </button>
         </div>
