@@ -273,7 +273,7 @@ abstract class BaseModel extends Base
 
     /**
      * @return string
-     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     private function generateSql(): string
     {
@@ -286,7 +286,7 @@ abstract class BaseModel extends Base
 
     /**
      * @return string
-     * @throws \InvalidArgumentException
+     * @throws \Exception
      */
     private function generateSqlCaseSelect(): string
     {

@@ -24,7 +24,7 @@ try {
 
     $result = $updateController->process();
     if (!$result) {
-        $response->setStatusCode(204);
+        $response->setStatusCode(409);
         $response->setSuccess(true);
         $response->setMessage('Update failed');
         $response->send();

@@ -13,7 +13,7 @@ abstract class Base
 
     public function __construct(protected object $requestValues, protected BaseModel $model)
     {
-        if (!$this->requestValues?->id && !$this->requestValues?->ID) {
+        if (!$this->requestValues?->id && !$this->requestValues?->ID && $this->requestValues) {
             throw new \Exception('No id passed');
         }
 

@@ -4,15 +4,13 @@ namespace App\Controller;
 
 use App\Database\MySQL\Models\Base\BaseModel;
 
-class UpdateController extends Base
+class DeleteController extends Base
 {
-    /**
-     * @return int|null
-     */
     public function process(): ?int
     {
-        return $this->model->update($this->fields)
-            ->where(['=ID' => $this->id])
+        return $this->model->delete([
+            '=ID' => $this->id
+        ])
             ->exec()
             ->get()
             ->rowCount();
