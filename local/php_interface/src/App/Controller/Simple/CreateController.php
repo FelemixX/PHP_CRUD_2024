@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Simple;
 
+use App\Controller\Base;
 use App\Database\MySQL\Models\Base\BaseModel;
 
 class CreateController extends Base

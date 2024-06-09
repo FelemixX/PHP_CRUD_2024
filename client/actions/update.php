@@ -2,7 +2,7 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/lib/vendor/autoload.php');
 
-use App\Controller\UpdateController;
+use App\Controller\Simple\UpdateController;
 use App\Database\MySQL\Models\ClientModel;
 use App\Response\Interface\ResponseTypesInterface;
 use App\Response\ResponseFactory;
