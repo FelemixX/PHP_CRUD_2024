@@ -31,7 +31,7 @@ abstract class Base extends AbstractModel
         try {
             $connectionString = "mysql:host=$this->host;port=$this->port;dbname=$this->database";
 
-            return new \PDO($connectionString, $this->username, $this->password);
+            return new \PDO($connectionString, $this->username, $this->password, [\PDO::MYSQL_ATTR_FOUND_ROWS => true]);
         } catch (\PDOException $pdoException) {
             $this->handleConnectionError($pdoException);
         }

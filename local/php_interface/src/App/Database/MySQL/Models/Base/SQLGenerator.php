@@ -120,11 +120,7 @@ final readonly class SQLGenerator
         foreach ($this->query->where->fields as $condition => $conditionRight) {
             $conditionOperator = SQLDataHelper::parseConditionOperator($condition);
             if (!$conditionOperator) {
-                throw new \Exception('Condition operator is not valid');
-            }
-
-            if (empty($conditionRight)) {
-                $conditionRight = 'NULL';
+                throw new \InvalidArgumentException('Condition operator is not valid');
             }
 
             $conditionLeft = ltrim($condition, $conditionOperator);
