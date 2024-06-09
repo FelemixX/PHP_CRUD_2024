@@ -19,8 +19,7 @@ abstract class Base extends AbstractModel
         $this->database = $credentials->database;
         $this->port = $credentials->port;
         $this->connection = $this->createConnection();
-        $this->tableName = $this->getTableName();
-
+        $this->tableName = static::getTableName();
     }
 
     /**

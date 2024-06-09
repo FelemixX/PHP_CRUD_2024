@@ -1,4 +1,6 @@
-<?php /** array $modalRows */ ?>
+<?php
+/** @var array $modalRows */
+?>
 <?php if (!empty($modalRows)): ?>
     <noindex>
         <div class="modal fade" id="tableActionModal" tabindex="-1" aria-labelledby="tableActionModal" aria-hidden="true">

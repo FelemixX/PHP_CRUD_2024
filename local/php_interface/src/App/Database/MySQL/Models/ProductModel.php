@@ -6,7 +6,10 @@ use App\Database\MySQL\Models\Base\BaseModel;
 
 class ProductModel extends BaseModel
 {
-    public function getTableName(): string
+    /**
+     * @inheritDoc
+     */
+    public static function getTableName(): string
     {
         return 'product';
     }

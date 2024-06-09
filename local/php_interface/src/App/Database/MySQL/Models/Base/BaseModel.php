@@ -149,9 +149,8 @@ abstract class BaseModel extends Base
 
     public function join(string $type, string $table, string $reference, string $value): static
     {
-        if ($type !== AbstractModel::JOIN_TYPE_CROSS && $type !== AbstractModel::JOIN_TYPE_LEFT && $type !== AbstractModel::JOIN_TYPE_RIGHT && $type !== AbstractModel::JOIN_TYPE_INNER && $type !== AbstractModel::JOIN_TYPE_STANDARD) {
-            $class = AbstractModel::class;
-            throw new \InvalidArgumentException("Invalid join type $type. Join type must be instance of $class");
+        if (!in_array($type, (new \ReflectionClass(AbstractModel::class))->getConstants())) {
+            throw new \InvalidArgumentException('Join type must be instance of ' . AbstractModel::class);
         }
 
         $this->query->join[] = [

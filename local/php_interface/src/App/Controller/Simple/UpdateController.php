@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Simple;
 
-use App\Database\MySQL\Models\Base\BaseModel;
+use App\Controller\Base;
 
 class UpdateController extends Base
 {

@@ -2,7 +2,7 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/lib/vendor/autoload.php');
 
-use App\Controller\CreateController;
+use App\Controller\Simple\CreateController;
 use App\Database\MySQL\Models\ClientModel;
 use App\Response\Interface\ResponseTypesInterface;
 use App\Response\ResponseFactory;
@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $response->setSuccess(false);
     $response->setMessage('Request method is not supported');
     $response->send();
+    die();
 }
 
 $input = file_get_contents('php://input');

@@ -1,16 +1,16 @@
 <?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php') ?>
 
 <?php
-$clientModel = new \App\Database\MySQL\Models\ClientModel();
+$productModel = new \App\Database\MySQL\Models\ProductModel();
 
-$clients = $clientModel->select(['ID', 'FULL_NAME', 'PHONE_NUMBER'])
-    ->order(['FULL_NAME' => 'ASC', 'ID' => 'ASC'])
+$products = $productModel->select(['ID', 'NAME', 'PRICE'])
+    ->order(['NAME' => 'ASC', 'PRICE' => 'DESC', 'ID' => 'ASC'])
     ->exec();
 
-$clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
-$rows = $modalRows = array_keys($clientsData[array_key_first($clientsData)]);
+$productsData = $products->get()->fetchAll(PDO::FETCH_ASSOC);
+$rows = $modalRows = array_keys($productsData[array_key_first($productsData)]);
 ?>
-<?php if (!empty($clientsData)): ?>
+<?php if (!empty($productsData)): ?>
     <div class="container mx-auto my-auto">
         <table class="table table-hover table-responsive border border-success text-center align-middle">
             <thead>
@@ -24,26 +24,26 @@ $rows = $modalRows = array_keys($clientsData[array_key_first($clientsData)]);
             </tr>
             </thead>
             <tbody>
-            <?php foreach ($clientsData as $client): ?>
+            <?php foreach ($productsData as $product): ?>
                 <tr>
                     <th scope="row">
-                        <?= $client['ID'] ?>
+                        <?= $product['ID'] ?>
                     </th>
                     <td class="border border-success" data-value-row-number="1">
-                        <?= $client['FULL_NAME'] ?>
+                        <?= $product['NAME'] ?>
                     </td>
                     <td class="border border-success" data-value-row-number="2">
-                        <?= $client['PHONE_NUMBER'] ?>
+                        <?= $product['PRICE'] ?>
                     </td>
                     <td class="border border-success">
-                        <button type="button" class="btn btn-success" data-action="update" data-bs-title="Изменить" data-id="<?= $client['ID'] ?>"
+                        <button type="button" class="btn btn-success" data-action="update" data-bs-title="Изменить" data-id="<?= $product['ID'] ?>"
                                 data-bs-toggle="modal" data-bs-target="#tableActionModal"
                         >
                             Изменить
                         </button>
                     </td>
                     <td class="border border-success">
-                        <button type="button" class="btn btn-danger" data-action="delete" data-bs-title="Удалить" data-id="<?= $client['ID'] ?>"
+                        <button type="button" class="btn btn-danger" data-action="delete" data-bs-title="Удалить" data-id="<?= $product['ID'] ?>"
                                 data-bs-toggle="modal" data-bs-target="#tableActionModal"
                         >
                             Удалить
@@ -66,7 +66,7 @@ $rows = $modalRows = array_keys($clientsData[array_key_first($clientsData)]);
 <?php endif; ?>
 
 <script>
-    var ajaxPath = '/client/actions/';
+    var ajaxPath = '/product/actions/';
 </script>
 
 <?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php') ?>

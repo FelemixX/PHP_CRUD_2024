@@ -76,8 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     rowsValues.forEach((element) => {
                         rowsValuesModal.forEach((modalElement) => {
                             if (modalElement.dataset.valueRowNumber === element.dataset.valueRowNumber) {
-                                modalElement.querySelector('input').placeholder = element.innerText;
-                                modalElement.querySelector('input').value = element.innerText;
+                                const modalInput = modalElement.querySelector('input');
+
+                                modalInput.placeholder = element.innerText;
+                                modalInput.value = element.innerText;
+                                modalInput.disabled = element.dataset?.disabled;
                             }
                         });
                     });

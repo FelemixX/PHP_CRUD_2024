@@ -2,8 +2,8 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/lib/vendor/autoload.php');
 
-use App\Controller\Simple\UpdateController;
-use App\Database\MySQL\Models\ClientModel;
+use App\Controller\UpdateController;
+use App\Database\MySQL\Models\ProductModel;
 use App\Response\Interface\ResponseTypesInterface;
 use App\Response\ResponseFactory;
 
@@ -20,7 +20,7 @@ $input = file_get_contents('php://input');
 $data = json_decode($input);
 
 try {
-    $updateController = new UpdateController($data, new ClientModel());
+    $updateController = new UpdateController($data, new ProductModel());
     $response = ResponseFactory::create(ResponseTypesInterface::JSON);
 
     $result = $updateController->process();
