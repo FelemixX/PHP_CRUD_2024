@@ -44,7 +44,7 @@ abstract class BaseModel extends Base
     {
         SQLDataHelper::checkRequiredFields($fields);
         if (!empty($this->query->update->fields) || !empty($this->query->insert->fields) || !empty($this->query->delete->fields)) {
-            throw new \Exception('Updating while UPDATE OR INSERT OR DELETE is active are forbidden');
+            throw new \InvalidArgumentException('Updating while UPDATE OR INSERT OR DELETE is active are forbidden');
         }
 
         if (SQLDataHelper::checkAssocArray($fields)) {
@@ -65,7 +65,7 @@ abstract class BaseModel extends Base
     /**
      * @param array $fields
      * @return $this
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function insert(array $fields): static
     {
@@ -74,7 +74,7 @@ abstract class BaseModel extends Base
             '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]'
         );
         if (!empty($this->query->select->fields) || !empty($this->query->update->fields) || !empty($this->query->delete->fields)) {
-            throw new \Exception('Updating while SELECT OR UPDATE OR DELETE is active are forbidden');
+            throw new \InvalidArgumentException('Updating while SELECT OR UPDATE OR DELETE is active are forbidden');
         }
 
         foreach ($fields as $column => $value) {
@@ -87,7 +87,7 @@ abstract class BaseModel extends Base
     /**
      * @param array $fields
      * @return $this
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function update(array $fields): static
     {
@@ -96,7 +96,7 @@ abstract class BaseModel extends Base
             '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]'
         );
         if (!empty($this->query->select->fields) || !empty($this->query->insert->fields) || !empty($this->query->delete->fields)) {
-            throw new \Exception('Updating while SELECT OR INSERT OR DELETE is active are forbidden');
+            throw new \InvalidArgumentException('Updating while SELECT OR INSERT OR DELETE is active are forbidden');
         }
 
         foreach ($fields as $column => $value) {
@@ -109,7 +109,7 @@ abstract class BaseModel extends Base
     /**
      * @param array $fields
      * @return $this
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function delete(array $fields): static
     {
@@ -118,7 +118,7 @@ abstract class BaseModel extends Base
             '$fields must be assoc array. $fields = ["column1" => "value1", "column2" => "value2", "column3" => "value3"]'
         );
         if (!empty($this->query->select->fields) || !empty($this->query->insert->fields) || !empty($this->query->update->fields)) {
-            throw new \Exception('Updating while SELECT OR INSERT OR UPDATE is active are forbidden');
+            throw new \InvalidArgumentException('Updating while SELECT OR INSERT OR UPDATE is active are forbidden');
         }
 
         foreach ($fields as $column => $value) {
@@ -131,7 +131,7 @@ abstract class BaseModel extends Base
     /**
      * @param array $fields
      * @return $this
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function where(array $fields): static
     {
@@ -151,7 +151,7 @@ abstract class BaseModel extends Base
     {
         if ($type !== AbstractModel::JOIN_TYPE_CROSS && $type !== AbstractModel::JOIN_TYPE_LEFT && $type !== AbstractModel::JOIN_TYPE_RIGHT && $type !== AbstractModel::JOIN_TYPE_INNER && $type !== AbstractModel::JOIN_TYPE_STANDARD) {
             $class = AbstractModel::class;
-            throw new \Exception("Invalid join type $type. Join type must be instance of $class");
+            throw new \InvalidArgumentException("Invalid join type $type. Join type must be instance of $class");
         }
 
         $this->query->join[] = [
@@ -189,7 +189,7 @@ abstract class BaseModel extends Base
     /**
      * @param array $fields
      * @return $this
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function order(array $fields): static
     {
@@ -208,7 +208,7 @@ abstract class BaseModel extends Base
 
     /**
      * @return object
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     public function exec(): object
     {
@@ -238,7 +238,7 @@ abstract class BaseModel extends Base
     /**
      * @param string $sql
      * @return void
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     private function executeBindingQuery(string $sql): void
     {
@@ -252,7 +252,7 @@ abstract class BaseModel extends Base
                 break;
             case !empty($this->query->update->fields):
                 if (empty($this->query->where->fields)) {
-                    throw new \Exception('Updating without condition is forbidden');
+                    throw new \InvalidArgumentException('Updating without condition is forbidden');
                 }
                 $db->execute(array_values($this->query->update->fields));
                 break;
@@ -273,7 +273,7 @@ abstract class BaseModel extends Base
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     private function generateSql(): string
     {
@@ -286,7 +286,7 @@ abstract class BaseModel extends Base
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws \InvalidArgumentException
      */
     private function generateSqlCaseSelect(): string
     {

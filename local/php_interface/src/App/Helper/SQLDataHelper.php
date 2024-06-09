@@ -13,13 +13,13 @@ class SQLDataHelper
     {
         if (!in_array('ID', $fields)) {
             if (!in_array('*', $fields)) {
-                throw new \Exception('ID must be selected');
+                throw new \ArgumentCountError('ID must be selected');
             }
         }
 
         foreach ($fields as $field) {
             if (is_array($field)) {
-                throw new \Exception('Array of arrays is not supported');
+                throw new \InvalidArgumentException('Array of arrays is not supported');
             }
         }
     }
@@ -43,7 +43,7 @@ class SQLDataHelper
         }
 
         if (mb_strlen($exception)) {
-            throw new \Exception($exception);
+            throw new \InvalidArgumentException($exception);
         }
         return false;
     }
@@ -106,7 +106,7 @@ class SQLDataHelper
         foreach ($conditions as $condition => $conditionRight) {
             $conditionOperator = static::parseConditionOperator($condition);
             if (!$conditionOperator) {
-                throw new \Exception('Condition operator is not valid');
+                throw new \InvalidArgumentException('Condition operator is not valid');
             }
 
             $conditionLeft = ltrim($condition, $conditionOperator);
@@ -132,7 +132,7 @@ class SQLDataHelper
         foreach ($conditions as $condition => $conditionRight) {
             $conditionOperator = static::parseConditionOperator($condition);
             if (!$conditionOperator) {
-                throw new \Exception('Condition operator is not valid');
+                throw new \InvalidArgumentException('Condition operator is not valid');
             }
 
             $conditionLeft = ltrim($condition, $conditionOperator);

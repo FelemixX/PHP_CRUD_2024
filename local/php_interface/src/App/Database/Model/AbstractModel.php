@@ -33,6 +33,6 @@ abstract class AbstractModel extends AbstractConnection
      */
     public function getTableName(): string
     {
-        throw new \Exception('You must override table name');
+        throw new \BadMethodCallException('You must override table name');
     }
 }
