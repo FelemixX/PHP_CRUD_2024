@@ -77,6 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         rowsValuesModal.forEach((modalElement) => {
                             if (modalElement.dataset.valueRowNumber === element.dataset.valueRowNumber) {
                                 modalElement.querySelector('input').placeholder = element.innerText;
+                                modalElement.querySelector('input').value = element.innerText;
                             }
                         });
                     });
@@ -91,8 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         modal.addEventListener('hide.bs.modal', () => {
-            modal.querySelector('input:disabled').value = '';
+            modalForm.querySelector('.text-danger').classList.add('d-none');
+            modalForm.querySelector('.text-danger').innerText = '';
+
             modal.querySelector('.modal-header h1').innerText = '';
+            modalForm.reset();
             modalForm.dataset.action = '';
             modalForm.dataset.id = '';
 
@@ -114,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const action = data.get('ACTION');
 
         let jsonObject = {};
-        for (const [key, value]  of data.entries()) {
+        for (const [key, value] of data.entries()) {
             jsonObject[key] = value;
         }
 
@@ -124,6 +128,30 @@ document.addEventListener("DOMContentLoaded", () => {
             method: requestType,
             body: jsonString,
         })
-            .then((response) => console.log(response))
+            .then((response) => {
+                const textContainer = document.querySelector('.text-danger');
+                textContainer.innerText = '';
+                textContainer.classList.add('d-none');
+
+                if (!response.ok) {
+                    return Promise.reject(response);
+                }
+
+                return response.json();
+            })
+            .then(() => {
+                location.reload();
+            })
+            .catch(response => {
+                response?.json().then((json) => {
+                    const message = json?.message;
+                    if (message) {
+                        const textContainer = document.querySelector('.d-none.text-danger');
+                        textContainer.innerText = message;
+                        textContainer.classList.remove('d-none');
+                    }
+                });
+
+            });
     }
 });

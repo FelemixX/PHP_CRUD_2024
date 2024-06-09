@@ -22,6 +22,7 @@
                                 </div>
                             <?php endforeach; ?>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <div class="d-none text-danger"></div>
                                 <button type="submit" class="btn btn-primary">Применить</button>
                             </div>
                         </form>
