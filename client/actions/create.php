@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $response->setSuccess(false);
     $response->setMessage('Request method is not supported');
     $response->send();
+    die();
 }
 
 $input = file_get_contents('php://input');

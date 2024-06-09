@@ -7,8 +7,8 @@ $clients = $clientModel->select(['ID', 'FULL_NAME', 'PHONE_NUMBER'])
     ->order(['FULL_NAME' => 'ASC', 'ID' => 'ASC'])
     ->exec();
 
-$rows = $modalRows = array_keys((array)$clients->get()->fetch(PDO::FETCH_ASSOC));
 $clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
+$rows = $modalRows = array_keys($clientsData[array_key_first($clientsData)]);
 ?>
 <?php if (!empty($clientsData)): ?>
     <div class="container mx-auto my-auto">
@@ -16,11 +16,11 @@ $clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
             <thead>
             <tr>
                 <?php foreach ($rows as $row): ?>
-                    <td class="border border-success">
+                    <td class="border border-success fw-bold">
                         <?= $row ?>
                     </td>
                 <?php endforeach; ?>
-                <td colspan="2">Действие</td>
+                <td class="fw-bold" colspan="2">Действие</td>
             </tr>
             </thead>
             <tbody>
