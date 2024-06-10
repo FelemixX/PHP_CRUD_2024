@@ -35,6 +35,22 @@
                 <a href="/client-product/" class="btn btn-success">Перейти</a>
             </td>
         </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td class="border border-success">Corporation</td>
+            <td class="border border-success">corporation</td>
+            <td class="border border-success">
+                <a href="/corporation/" class="btn btn-success">Перейти</a>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td class="border border-success">City</td>
+            <td class="border border-success">city</td>
+            <td class="border border-success">
+                <a href="/city/" class="btn btn-success">Перейти</a>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

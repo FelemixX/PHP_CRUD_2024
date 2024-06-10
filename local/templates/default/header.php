@@ -44,6 +44,11 @@
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/pharmacy/">
+                            Pharmacy
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/client/">
                             Client
                         </a>
@@ -56,6 +61,16 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/client-product/">
                             Client-Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/city/">
+                            City
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/corporation/">
+                            Corporation
                         </a>
                     </li>
                 </ul>

@@ -21,8 +21,8 @@ $data = $clientProduct->select([
     'PRODUCT_NAME' => "$productTableName.NAME",
     'PRODUCT_PRICE' => "$productTableName.PRICE",
 ])
-    ->join(AbstractModel::JOIN_TYPE_LEFT, ProductModel::getTableName(), "$productTableName.ID", "$tableName.ID_PRODUCT")
-    ->join(AbstractModel::JOIN_TYPE_RIGHT, ClientModel::getTableName(), "$clientTableName.ID", "$tableName.ID_CLIENT")
+    ->join(AbstractModel::JOIN_TYPE_INNER, ProductModel::getTableName(), "$productTableName.ID", "$tableName.ID_PRODUCT")
+    ->join(AbstractModel::JOIN_TYPE_INNER, ClientModel::getTableName(), "$clientTableName.ID", "$tableName.ID_CLIENT")
     ->exec();
 
 $items = $data->get()->fetchAll(PDO::FETCH_ASSOC);
