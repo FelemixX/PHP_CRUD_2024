@@ -30,55 +30,57 @@ $rows = $modalRows = array_keys($items[array_key_first($items)]);
 ?>
 <?php if (!empty($items)): ?>
     <div class="container mx-auto my-auto">
-        <table class="table table-hover table-responsive border border-success text-center align-middle">
-            <thead>
-            <tr>
-                <?php foreach ($rows as $row): ?>
-                    <td class="border border-success fw-bold">
-                        <?= $row ?>
-                    </td>
-                <?php endforeach; ?>
-                <td class="fw-bold" colspan="2">Действие</td>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($items as $item): ?>
+        <div class="table-responsive">
+            <table class="table table-hover border border-success text-center align-middle">
+                <thead>
                 <tr>
-                    <th scope="row">
-                        <?= $item['ID'] ?>
-                    </th>
-                    <td class="border border-success" data-value-row-number="1" data-disabled="true">
-                        <?= $item['CLIENT_ID'] ?>
-                    </td>
-                    <td class="border border-success" data-value-row-number="2">
-                        <?= $item['CLIENT_NAME'] ?>
-                    </td>
-                    <td class="border border-success" data-value-row-number="3">
-                        <?= $item['CLIENT_PHONE'] ?>
-                    </td>
-                    <td class="border border-success" data-value-row-number="4" data-disabled="true">
-                        <?= $item['PRODUCT_ID'] ?>
-                    </td>
-                    <td class="border border-success" data-value-row-number="5">
-                        <?= $item['PRODUCT_NAME'] ?>
-                    </td>
-                    <td class="border border-success" data-value-row-number="6">
-                        <?= $item['PRODUCT_PRICE'] ?>
-                    </td>
-                    <td class="border border-success">
-                        <button type="button" class="btn btn-success" disabled>
-                            Изменить
-                        </button>
-                    </td>
-                    <td class="border border-success">
-                        <button type="button" class="btn btn-danger" disabled>
-                            Удалить
-                        </button>
-                    </td>
+                    <?php foreach ($rows as $row): ?>
+                        <td class="border border-success fw-bold">
+                            <?= $row ?>
+                        </td>
+                    <?php endforeach; ?>
+                    <td class="fw-bold" colspan="2">Действие</td>
                 </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <?php foreach ($items as $item): ?>
+                    <tr>
+                        <th scope="row">
+                            <?= $item['ID'] ?>
+                        </th>
+                        <td class="border border-success" data-value-row-number="1" data-disabled="true">
+                            <?= $item['CLIENT_ID'] ?>
+                        </td>
+                        <td class="border border-success" data-value-row-number="2">
+                            <?= $item['CLIENT_NAME'] ?>
+                        </td>
+                        <td class="border border-success" data-value-row-number="3">
+                            <?= $item['CLIENT_PHONE'] ?>
+                        </td>
+                        <td class="border border-success" data-value-row-number="4" data-disabled="true">
+                            <?= $item['PRODUCT_ID'] ?>
+                        </td>
+                        <td class="border border-success" data-value-row-number="5">
+                            <?= $item['PRODUCT_NAME'] ?>
+                        </td>
+                        <td class="border border-success" data-value-row-number="6">
+                            <?= $item['PRODUCT_PRICE'] ?>
+                        </td>
+                        <td class="border border-success">
+                            <button type="button" class="btn btn-success" disabled>
+                                Изменить
+                            </button>
+                        </td>
+                        <td class="border border-success">
+                            <button type="button" class="btn btn-danger" disabled>
+                                Удалить
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex flex-row-reverse">
             <button type="button" class="btn btn-primary" disabled>
                 Создать

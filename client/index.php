@@ -12,47 +12,49 @@ $rows = $modalRows = array_keys($clientsData[array_key_first($clientsData)]);
 ?>
 <?php if (!empty($clientsData)): ?>
     <div class="container mx-auto my-auto">
-        <table class="table table-hover table-responsive border border-success text-center align-middle">
-            <thead>
-            <tr>
-                <?php foreach ($rows as $row): ?>
-                    <td class="border border-success fw-bold">
-                        <?= $row ?>
-                    </td>
-                <?php endforeach; ?>
-                <td class="fw-bold" colspan="2">Действие</td>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($clientsData as $client): ?>
+        <div class="table-responsive">
+            <table class="table table-hover border border-success text-center align-middle">
+                <thead>
                 <tr>
-                    <th scope="row">
-                        <?= $client['ID'] ?>
-                    </th>
-                    <td class="border border-success" data-value-row-number="1">
-                        <?= $client['FULL_NAME'] ?>
-                    </td>
-                    <td class="border border-success" data-value-row-number="2">
-                        <?= $client['PHONE_NUMBER'] ?>
-                    </td>
-                    <td class="border border-success">
-                        <button type="button" class="btn btn-success" data-action="update" data-bs-title="Изменить" data-id="<?= $client['ID'] ?>"
-                                data-bs-toggle="modal" data-bs-target="#tableActionModal"
-                        >
-                            Изменить
-                        </button>
-                    </td>
-                    <td class="border border-success">
-                        <button type="button" class="btn btn-danger" data-action="delete" data-bs-title="Удалить" data-id="<?= $client['ID'] ?>"
-                                data-bs-toggle="modal" data-bs-target="#tableActionModal"
-                        >
-                            Удалить
-                        </button>
-                    </td>
+                    <?php foreach ($rows as $row): ?>
+                        <td class="border border-success fw-bold">
+                            <?= $row ?>
+                        </td>
+                    <?php endforeach; ?>
+                    <td class="fw-bold" colspan="2">Действие</td>
                 </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                <?php foreach ($clientsData as $client): ?>
+                    <tr>
+                        <th scope="row">
+                            <?= $client['ID'] ?>
+                        </th>
+                        <td class="border border-success" data-value-row-number="1">
+                            <?= $client['FULL_NAME'] ?>
+                        </td>
+                        <td class="border border-success" data-value-row-number="2">
+                            <?= $client['PHONE_NUMBER'] ?>
+                        </td>
+                        <td class="border border-success">
+                            <button type="button" class="btn btn-success" data-action="update" data-bs-title="Изменить" data-id="<?= $client['ID'] ?>"
+                                    data-bs-toggle="modal" data-bs-target="#tableActionModal"
+                            >
+                                Изменить
+                            </button>
+                        </td>
+                        <td class="border border-success">
+                            <button type="button" class="btn btn-danger" data-action="delete" data-bs-title="Удалить" data-id="<?= $client['ID'] ?>"
+                                    data-bs-toggle="modal" data-bs-target="#tableActionModal"
+                            >
+                                Удалить
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
         <div class="d-flex flex-row-reverse">
             <button type="button" class="btn btn-primary" data-action="create" data-bs-title="Создать"
                     data-bs-toggle="modal" data-bs-target="#tableActionModal"
