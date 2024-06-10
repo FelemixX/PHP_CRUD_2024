@@ -103,8 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
             modalForm.dataset.action = '';
             modalForm.dataset.id = '';
 
-            modal.querySelectorAll('input:not([data-primary])').forEach(input => {
+            modal.querySelectorAll('input:not([data-primary])')?.forEach(input => {
                 input.disabled = false;
+            });
+
+            modal.querySelectorAll('input')?.forEach(input => {
+                input.placeholder = '';
             });
         });
     }
