@@ -11,7 +11,7 @@ create table if not exists classification_of_pharmacy_products
     ID           int unsigned auto_increment
         primary key,
     PRESCRIPTION tinyint(1)  not null comment 'рецепт',
-    `GROUP`      varchar(30) not null comment 'группа'
+    `GROUP`      varchar(50) not null comment 'группа'
 )
     comment 'классификация аптечных товаров';
 
@@ -28,9 +28,17 @@ create table if not exists corporation
 (
     ID           int unsigned auto_increment
         primary key,
-    NAME         varchar(100) not null,
+    NAME         varchar(70)  not null,
     ACTUAL_OWNER varchar(50)  not null comment 'фактический собственник',
     CONTACTS     varchar(100) not null
+);
+
+create table if not exists logistics
+(
+    ID       int unsigned auto_increment
+        primary key,
+    NAME     varchar(100) not null,
+    CONTACTS varchar(150) not null
 );
 
 create table if not exists manufacturer
@@ -41,15 +49,51 @@ create table if not exists manufacturer
     CONTACTS varchar(150) not null comment 'контакты'
 );
 
+create table if not exists logistics_manufacturer
+(
+    ID              int unsigned auto_increment
+        primary key,
+    ID_LOGISTICS    int unsigned not null,
+    ID_MANUFACTURER int unsigned not null,
+    constraint FK1_MANUFACTURER
+        foreign key (ID_MANUFACTURER) references manufacturer (ID)
+            on update cascade on delete cascade,
+    constraint FK_LOGISTICS
+        foreign key (ID_LOGISTICS) references logistics (ID)
+            on update cascade on delete cascade
+)
+    comment 'поставщик-произаодитель';
+
 create table if not exists pharmacy
 (
-    NAME     varchar(50)  not null,
-    ADDRESS  varchar(100) not null,
-    CONTACTS varchar(150) not null,
-    ID       int unsigned auto_increment
-        primary key
+    ID              int unsigned auto_increment
+        primary key,
+    NAME            varchar(50)  not null,
+    ADDRESS         varchar(100) not null,
+    CONTACTS        varchar(150) not null,
+    CORPORTATION_FK int unsigned null comment 'Код организации',
+    CITY_FK         int unsigned null,
+    constraint CITY_FK
+        foreign key (CITY_FK) references city (ID)
+            on update cascade on delete cascade,
+    constraint CORPORATION_FK
+        foreign key (CORPORTATION_FK) references corporation (ID)
+            on update cascade on delete cascade
 )
     comment 'аптека';
+
+create table if not exists employee
+(
+    ID          int unsigned auto_increment
+        primary key,
+    `FULL NAME` varchar(100) not null,
+    POST        varchar(25)  not null,
+    PHARMACY_FK int unsigned null,
+    constraint PHARMACY_FK
+        foreign key (PHARMACY_FK) references pharmacy (ID)
+            on update cascade on delete cascade
+)
+    comment 'сотрудник';
 
 create table if not exists product
 (
@@ -89,22 +133,15 @@ create table if not exists product_group
 )
     comment 'товар-группа';
 
-create table if not exists provider
-(
-    ID       int unsigned auto_increment
-        primary key,
-    NAME     varchar(100) not null,
-    CONTACTS varchar(150) not null
-);
 
-create table if not exists product_provider
+create table if not exists product_logistics
 (
-    ID          int unsigned auto_increment
+    ID           int unsigned auto_increment
         primary key,
-    ID_PRODUCT  int unsigned not null,
-    ID_PROVIDER int unsigned not null,
-    constraint FK1_PROVIDER
-        foreign key (ID_PROVIDER) references provider (ID)
+    ID_PRODUCT   int unsigned not null,
+    ID_LOGISTICS int unsigned not null,
+    constraint FK1_LOGISTICS
+        foreign key (ID_LOGISTICS) references logistics (ID)
             on update cascade on delete cascade,
     constraint FK3_PRODUCT
         foreign key (ID_PRODUCT) references product (ID)
@@ -112,33 +149,22 @@ create table if not exists product_provider
 )
     comment 'товар-поставщик';
 
-create table if not exists provider_manufacturer
-(
-    ID              int unsigned auto_increment
-        primary key,
-    ID_PROVIDER     int unsigned not null,
-    ID_MANUFACTURER int unsigned not null,
-    constraint FK1_MANUFACTURER
-        foreign key (ID_MANUFACTURER) references manufacturer (ID)
-            on update cascade on delete cascade,
-    constraint FK_PROVIDER
-        foreign key (ID_PROVIDER) references provider (ID)
-            on update cascade on delete cascade
-)
-    comment 'поставщик-произаодитель';
-
 create table if not exists rating
 (
-    GRADE int unsigned not null comment 'оценка',
-    ID    int unsigned auto_increment
-        primary key
+    ID          int unsigned auto_increment
+        primary key,
+    GRADE       tinyint unsigned not null comment 'оценка',
+    ID_PHARMACY int unsigned     null,
+    constraint FK1_PHARMACY
+        foreign key (ID_PHARMACY) references pharmacy (ID)
+            on update cascade on delete cascade
 );
 
 create table if not exists rating_client
 (
-    ID_RATING int unsigned not null,
     ID        int unsigned auto_increment
         primary key,
+    ID_RATING int unsigned not null,
     ID_CLIENT int unsigned not null,
     constraint FK1_CLIENT
         foreign key (ID_CLIENT) references client (ID)
@@ -148,13 +174,4 @@ create table if not exists rating_client
             on update cascade on delete cascade
 )
     comment 'рейтинг-клиент';
-
-create table if not exists worker
-(
-    ID          int unsigned auto_increment
-        primary key,
-    `FULL NAME` varchar(100) not null,
-    POST        varchar(25)  not null
-)
-    comment 'сотрудник';
 

@@ -1,0 +1,10 @@
+UPDATE bitrix.client_product SET ID_CLIENT = 1, ID_PRODUCT = 1 WHERE ID = 1;
+UPDATE bitrix.client_product SET ID_CLIENT = 2, ID_PRODUCT = 3 WHERE ID = 2;
+UPDATE bitrix.client_product SET ID_CLIENT = 3, ID_PRODUCT = 5 WHERE ID = 3;
+UPDATE bitrix.client_product SET ID_CLIENT = 4, ID_PRODUCT = 4 WHERE ID = 4;
+UPDATE bitrix.client_product SET ID_CLIENT = 5, ID_PRODUCT = 8 WHERE ID = 5;
+UPDATE bitrix.client_product SET ID_CLIENT = 6, ID_PRODUCT = 3 WHERE ID = 6;
+UPDATE bitrix.client_product SET ID_CLIENT = 7, ID_PRODUCT = 2 WHERE ID = 7;
+UPDATE bitrix.client_product SET ID_CLIENT = 8, ID_PRODUCT = 6 WHERE ID = 8;
+UPDATE bitrix.client_product SET ID_CLIENT = 9, ID_PRODUCT = 10 WHERE ID = 9;
+UPDATE bitrix.client_product SET ID_CLIENT = 10, ID_PRODUCT = 10 WHERE ID = 10;

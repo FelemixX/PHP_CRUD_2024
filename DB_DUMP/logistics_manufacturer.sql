@@ -1,0 +1,10 @@
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 1, ID_MANUFACTURER = 1 WHERE ID = 1;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 2, ID_MANUFACTURER = 2 WHERE ID = 2;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 3, ID_MANUFACTURER = 3 WHERE ID = 3;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 4, ID_MANUFACTURER = 4 WHERE ID = 4;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 5, ID_MANUFACTURER = 5 WHERE ID = 5;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 6, ID_MANUFACTURER = 6 WHERE ID = 6;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 7, ID_MANUFACTURER = 7 WHERE ID = 7;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 8, ID_MANUFACTURER = 8 WHERE ID = 8;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 9, ID_MANUFACTURER = 9 WHERE ID = 9;
+UPDATE bitrix.logistics_manufacturer SET ID_LOGISTICS = 10, ID_MANUFACTURER = 10 WHERE ID = 10;

@@ -1,0 +1,10 @@
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова А. А.', POST = 'Фармацевт', PHARMACY_FK = 7 WHERE ID = 1;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова Б. Б.', POST = 'Провизор', PHARMACY_FK = 6 WHERE ID = 2;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова В. В.', POST = 'Директор', PHARMACY_FK = 5 WHERE ID = 3;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова Г. Г.', POST = 'Заместитель директора', PHARMACY_FK = 14 WHERE ID = 4;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова Д. Д.', POST = 'Фасовщик', PHARMACY_FK = 13 WHERE ID = 5;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова Е. Е.', POST = 'Старший фармацевт', PHARMACY_FK = 12 WHERE ID = 6;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова Ж. Ж.', POST = 'Младший фармацевт', PHARMACY_FK = 11 WHERE ID = 7;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова И. И.', POST = 'Провизор-технолог', PHARMACY_FK = 10 WHERE ID = 8;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова К. К.', POST = 'Старший провизор', PHARMACY_FK = 9 WHERE ID = 9;
+UPDATE bitrix.employee SET `FULL NAME` = 'Петрова Л. Л.', POST = 'Провизор-аналитик', PHARMACY_FK = 8 WHERE ID = 10;

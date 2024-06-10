@@ -1,0 +1,10 @@
+UPDATE bitrix.rating_client SET ID_RATING = 1, ID_CLIENT = 1 WHERE ID = 1;
+UPDATE bitrix.rating_client SET ID_RATING = 2, ID_CLIENT = 2 WHERE ID = 2;
+UPDATE bitrix.rating_client SET ID_RATING = 3, ID_CLIENT = 3 WHERE ID = 3;
+UPDATE bitrix.rating_client SET ID_RATING = 4, ID_CLIENT = 4 WHERE ID = 4;
+UPDATE bitrix.rating_client SET ID_RATING = 5, ID_CLIENT = 5 WHERE ID = 5;
+UPDATE bitrix.rating_client SET ID_RATING = 6, ID_CLIENT = 6 WHERE ID = 6;
+UPDATE bitrix.rating_client SET ID_RATING = 7, ID_CLIENT = 7 WHERE ID = 7;
+UPDATE bitrix.rating_client SET ID_RATING = 8, ID_CLIENT = 8 WHERE ID = 8;
+UPDATE bitrix.rating_client SET ID_RATING = 9, ID_CLIENT = 9 WHERE ID = 9;
+UPDATE bitrix.rating_client SET ID_RATING = 10, ID_CLIENT = 10 WHERE ID = 10;

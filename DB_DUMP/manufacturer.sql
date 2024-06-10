@@ -1,0 +1,10 @@
+UPDATE bitrix.manufacturer SET NAME = 'ООО «МНПК «Биотики»', CONTACTS = '79922222221' WHERE ID = 1;
+UPDATE bitrix.manufacturer SET NAME = 'ООО «Озон»', CONTACTS = '79922222222 ozon@mail.ru' WHERE ID = 2;
+UPDATE bitrix.manufacturer SET NAME = 'Группа компаний «PolarPharm»', CONTACTS = '79922222223' WHERE ID = 3;
+UPDATE bitrix.manufacturer SET NAME = 'ООО «Экспериментально-производственный центр «Дезинфекционист»', CONTACTS = '79922222224' WHERE ID = 4;
+UPDATE bitrix.manufacturer SET NAME = 'ООО «ЭкоФармИнвест»', CONTACTS = '79922222225 ecopharminv@ya.ru' WHERE ID = 5;
+UPDATE bitrix.manufacturer SET NAME = 'ООО «ЮжФарм»', CONTACTS = '79922222226' WHERE ID = 6;
+UPDATE bitrix.manufacturer SET NAME = 'ЗАО «Северная звезда»', CONTACTS = '79922222227' WHERE ID = 7;
+UPDATE bitrix.manufacturer SET NAME = 'ООО "Не слышно"', CONTACTS = '79922222228' WHERE ID = 8;
+UPDATE bitrix.manufacturer SET NAME = 'ООО "Splet"', CONTACTS = '79922222229 splet@gmail.com' WHERE ID = 9;
+UPDATE bitrix.manufacturer SET NAME = 'ООО "Баночки"', CONTACTS = '79922222220' WHERE ID = 10;

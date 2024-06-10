@@ -1,0 +1,10 @@
+UPDATE bitrix.product_group SET ID_GROUP = 11, ID_PRODUCT = 1 WHERE ID = 1;
+UPDATE bitrix.product_group SET ID_GROUP = 4, ID_PRODUCT = 2 WHERE ID = 2;
+UPDATE bitrix.product_group SET ID_GROUP = 11, ID_PRODUCT = 3 WHERE ID = 3;
+UPDATE bitrix.product_group SET ID_GROUP = 9, ID_PRODUCT = 4 WHERE ID = 4;
+UPDATE bitrix.product_group SET ID_GROUP = 4, ID_PRODUCT = 5 WHERE ID = 5;
+UPDATE bitrix.product_group SET ID_GROUP = 6, ID_PRODUCT = 6 WHERE ID = 6;
+UPDATE bitrix.product_group SET ID_GROUP = 12, ID_PRODUCT = 7 WHERE ID = 7;
+UPDATE bitrix.product_group SET ID_GROUP = 7, ID_PRODUCT = 8 WHERE ID = 8;
+UPDATE bitrix.product_group SET ID_GROUP = 5, ID_PRODUCT = 9 WHERE ID = 9;
+UPDATE bitrix.product_group SET ID_GROUP = 8, ID_PRODUCT = 10 WHERE ID = 10;

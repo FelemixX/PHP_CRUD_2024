@@ -1,0 +1,10 @@
+UPDATE bitrix.rating SET GRADE = 1, ID_PHARMACY = null WHERE ID = 1;
+UPDATE bitrix.rating SET GRADE = 2, ID_PHARMACY = null WHERE ID = 2;
+UPDATE bitrix.rating SET GRADE = 3, ID_PHARMACY = 5 WHERE ID = 3;
+UPDATE bitrix.rating SET GRADE = 4, ID_PHARMACY = null WHERE ID = 4;
+UPDATE bitrix.rating SET GRADE = 5, ID_PHARMACY = 13 WHERE ID = 5;
+UPDATE bitrix.rating SET GRADE = 6, ID_PHARMACY = 12 WHERE ID = 6;
+UPDATE bitrix.rating SET GRADE = 7, ID_PHARMACY = 11 WHERE ID = 7;
+UPDATE bitrix.rating SET GRADE = 8, ID_PHARMACY = 10 WHERE ID = 8;
+UPDATE bitrix.rating SET GRADE = 9, ID_PHARMACY = 9 WHERE ID = 9;
+UPDATE bitrix.rating SET GRADE = 10, ID_PHARMACY = 8 WHERE ID = 10;

@@ -1,0 +1,10 @@
+UPDATE bitrix.city SET NAME = 'Волгоград', REGION = 'Волгоградская область' WHERE ID = 1;
+UPDATE bitrix.city SET NAME = 'Волжский', REGION = 'Волгоградская область' WHERE ID = 2;
+UPDATE bitrix.city SET NAME = 'Томск', REGION = 'Томская область' WHERE ID = 3;
+UPDATE bitrix.city SET NAME = 'Москва', REGION = 'Московская область' WHERE ID = 4;
+UPDATE bitrix.city SET NAME = 'Краснодар', REGION = 'Краснодарский край' WHERE ID = 5;
+UPDATE bitrix.city SET NAME = 'Казань', REGION = 'Республика Татарстан' WHERE ID = 6;
+UPDATE bitrix.city SET NAME = 'Новосибирск', REGION = 'Новосибирская область' WHERE ID = 7;
+UPDATE bitrix.city SET NAME = 'Элиста', REGION = 'Республика Калмыкия' WHERE ID = 8;
+UPDATE bitrix.city SET NAME = 'Керчь', REGION = 'Республика Крым' WHERE ID = 9;
+UPDATE bitrix.city SET NAME = 'Ставрополь', REGION = 'Ставропольский край' WHERE ID = 10;

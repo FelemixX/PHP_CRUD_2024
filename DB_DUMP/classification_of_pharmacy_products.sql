@@ -1,0 +1,10 @@
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 1, `GROUP` = 'Антибиотики' WHERE ID = 3;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 1, `GROUP` = 'Лечение заболеваний нервной системы' WHERE ID = 4;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Уход за полостью рта' WHERE ID = 5;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Слабительные средства' WHERE ID = 6;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Гигиена и уход' WHERE ID = 7;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Медицинские изделия и расходные материалы' WHERE ID = 8;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Дезинфекция и антисептические средства' WHERE ID = 9;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Противовирусные препараты' WHERE ID = 10;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Витамины и БАДы' WHERE ID = 11;
+UPDATE bitrix.classification_of_pharmacy_products SET PRESCRIPTION = 0, `GROUP` = 'Противоаллергические средства' WHERE ID = 12;

@@ -1,0 +1,10 @@
+UPDATE bitrix.client SET FULL_NAME = 'Иванова А. Б.', PHONE_NUMBER = '79777777771' WHERE ID = 1;
+UPDATE bitrix.client SET FULL_NAME = 'Иванов В. Г.', PHONE_NUMBER = '79777777772' WHERE ID = 2;
+UPDATE bitrix.client SET FULL_NAME = 'Иванов Д. Е.', PHONE_NUMBER = '79777777773' WHERE ID = 3;
+UPDATE bitrix.client SET FULL_NAME = 'Иванова Ж. З.', PHONE_NUMBER = '79777777774' WHERE ID = 4;
+UPDATE bitrix.client SET FULL_NAME = 'Иванов И. Й.', PHONE_NUMBER = '79777777775' WHERE ID = 5;
+UPDATE bitrix.client SET FULL_NAME = 'Иванов К. Л.', PHONE_NUMBER = '79777777776' WHERE ID = 6;
+UPDATE bitrix.client SET FULL_NAME = 'Иванов М. Н.', PHONE_NUMBER = '79777777777' WHERE ID = 7;
+UPDATE bitrix.client SET FULL_NAME = 'Иванов О. П.', PHONE_NUMBER = '79777777778' WHERE ID = 8;
+UPDATE bitrix.client SET FULL_NAME = 'Иванов Р. С.', PHONE_NUMBER = '79777777779' WHERE ID = 9;
+UPDATE bitrix.client SET FULL_NAME = 'Иванова Т. Ф.', PHONE_NUMBER = '79777777770' WHERE ID = 10;

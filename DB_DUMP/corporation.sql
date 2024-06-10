@@ -1,0 +1,10 @@
+UPDATE bitrix.corporation SET NAME = 'ООО "Март"', ACTUAL_OWNER = 'Иванов И. И.', CONTACTS = '79999999999 c1@mail.ru' WHERE ID = 3;
+UPDATE bitrix.corporation SET NAME = 'ООО "Мир"', ACTUAL_OWNER = 'Петров П. П.', CONTACTS = '79999999990' WHERE ID = 4;
+UPDATE bitrix.corporation SET NAME = 'ООО "Здоровое население"', ACTUAL_OWNER = 'Сидорова С. С.', CONTACTS = '79999999991' WHERE ID = 5;
+UPDATE bitrix.corporation SET NAME = 'ООО "Больше одного"', ACTUAL_OWNER = 'Смирнова С. С.', CONTACTS = '79999999992' WHERE ID = 6;
+UPDATE bitrix.corporation SET NAME = 'ООО "Здоровье ПЛЮС"', ACTUAL_OWNER = 'Васильев В. В.', CONTACTS = '79999999993 c4@mail.ru' WHERE ID = 7;
+UPDATE bitrix.corporation SET NAME = 'ООО "Волгофарм"', ACTUAL_OWNER = 'Михайлов М. М.', CONTACTS = '79999999994' WHERE ID = 8;
+UPDATE bitrix.corporation SET NAME = 'ООО "Москва Сити"', ACTUAL_OWNER = 'Афанасьева А. А.', CONTACTS = '79999999995' WHERE ID = 9;
+UPDATE bitrix.corporation SET NAME = 'ООО "Сибирское здоровье"', ACTUAL_OWNER = 'Федорченко Ф. Ф.', CONTACTS = '79999999995 c5@mail.ru' WHERE ID = 10;
+UPDATE bitrix.corporation SET NAME = 'ООО "Номер один"', ACTUAL_OWNER = 'Кузнецов К. К.', CONTACTS = '79999999996' WHERE ID = 11;
+UPDATE bitrix.corporation SET NAME = 'ООО "ВолжЗдрав"', ACTUAL_OWNER = 'Миронова А. В.', CONTACTS = '79999999997' WHERE ID = 12;

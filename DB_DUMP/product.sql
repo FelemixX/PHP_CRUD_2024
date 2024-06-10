@@ -1,0 +1,11 @@
+UPDATE bitrix.product SET NAME = 'Глицин', PRICE = 60 WHERE ID = 1;
+UPDATE bitrix.product SET NAME = 'Агомелатин', PRICE = 1500 WHERE ID = 2;
+UPDATE bitrix.product SET NAME = 'БиоКонтур рыбий жир', PRICE = 170 WHERE ID = 3;
+UPDATE bitrix.product SET NAME = 'Азопирам-Д', PRICE = 70 WHERE ID = 4;
+UPDATE bitrix.product SET NAME = 'Мексикор', PRICE = 500 WHERE ID = 5;
+UPDATE bitrix.product SET NAME = 'Вазелиновое масло', PRICE = 50 WHERE ID = 6;
+UPDATE bitrix.product SET NAME = 'Аллерфекс', PRICE = 390 WHERE ID = 7;
+UPDATE bitrix.product SET NAME = 'Беруши', PRICE = 300 WHERE ID = 8;
+UPDATE bitrix.product SET NAME = 'Зубная паста', PRICE = 150 WHERE ID = 9;
+UPDATE bitrix.product SET NAME = 'Контейнер для биопроб', PRICE = 10 WHERE ID = 10;
+UPDATE bitrix.product SET NAME = 'Флексотрон', PRICE = 1337 WHERE ID = 11;

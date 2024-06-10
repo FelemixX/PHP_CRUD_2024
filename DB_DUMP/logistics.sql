@@ -1,0 +1,10 @@
+UPDATE bitrix.logistics SET NAME = 'ООО "СДЭК"', CONTACTS = '79333333331 L1@ya.ru' WHERE ID = 1;
+UPDATE bitrix.logistics SET NAME = 'ООО "Перевозка"', CONTACTS = '79333333332' WHERE ID = 2;
+UPDATE bitrix.logistics SET NAME = 'ООО "Колёса"', CONTACTS = '79333333333' WHERE ID = 3;
+UPDATE bitrix.logistics SET NAME = 'ООО "Быстроезд"', CONTACTS = '79333333334' WHERE ID = 4;
+UPDATE bitrix.logistics SET NAME = 'ООО "ЛогистикПлюс"', CONTACTS = '79333333335 L3@ya.ru' WHERE ID = 5;
+UPDATE bitrix.logistics SET NAME = 'ООО "Умные Линии"', CONTACTS = '79333333336' WHERE ID = 6;
+UPDATE bitrix.logistics SET NAME = 'ООО "Скорость без предел"', CONTACTS = '79333333337' WHERE ID = 7;
+UPDATE bitrix.logistics SET NAME = 'ООО "РоссияЭкспресс"', CONTACTS = '79333333338' WHERE ID = 8;
+UPDATE bitrix.logistics SET NAME = 'ООО "Домой хочу"', CONTACTS = '79333333339 L9@ya.ru' WHERE ID = 9;
+UPDATE bitrix.logistics SET NAME = 'ООО "DA"', CONTACTS = '79333333330 L4@ya.ru' WHERE ID = 10;
