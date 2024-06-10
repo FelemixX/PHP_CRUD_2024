@@ -82,14 +82,14 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                             <?= $item['CORPORATION_ACTUAL_OWNER'] ?>
                         </td>
                         <td class="border border-success">
-                            <button type="button" class="btn btn-success" disabled>
+                            <a href="/pharmacy/update.php?id=<?= $item['ID'] ?>&corp_id=<?= $item['CORPORTATION_ID'] ?>&city_id=<?= $item['CITY_ID'] ?>" class="btn btn-success">
                                 Изменить
-                            </button>
+                            </a>
                         </td>
                         <td class="border border-success">
-                            <button type="button" class="btn btn-danger" disabled>
+                            <a href="/pharmacy/delete.php?id=<?= $item['ID'] ?>&corp_id=<?= $item['CORPORTATION_ID'] ?>&city_id=<?= $item['CITY_ID'] ?>" class="btn btn-danger" disabled>
                                 Удалить
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -97,9 +97,9 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
             </table>
         </div>
         <div class="d-flex flex-row-reverse">
-            <button type="button" class="btn btn-primary" disabled>
-                Создать
-            </button>
+            <a href="/pharmacy/create.php" class="btn btn-primary">
+                Добавить
+            </a>
         </div>
     </div>
 <?php else: ?>

@@ -3,19 +3,25 @@
 include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
 
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !intval($_POST['id']) && !intval($_POST['client_id']) && !intval($_POST['product_id'])) {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !intval($_POST['id']) && !intval($_POST['corp_id']) && !intval($_POST['city_id'])) {
     die('Wrong request method');
 }
 
 $id = intval($_POST['id']);
-$clientId = intval($_POST['client_id']);
-$productId = intval($_POST['product_id']);
-$clientProductModel = new \App\Database\MySQL\Models\ClientProductModel();
+$cityId = intval($_POST['city_id']);
+$corpId = intval($_POST['corp_id']);
+$address = strval($_POST['address']) ?: '';
+$name = strval($_POST['name']) ?: '';
+$contacts = strval($_POST['contacts']) ?: '';
+$pharmacyModel = new \App\Database\MySQL\Models\PharmacyModel();
 
 try {
-    $update = $clientProductModel->update([
-        'ID_CLIENT' => $clientId,
-        'ID_PRODUCT' => $productId,
+    $update = $pharmacyModel->update([
+        'CITY_FK' => $cityId,
+        'CORPORTATION_FK' => $corpId,
+        'NAME' => $name,
+        'ADDRESS' => $address,
+        'CONTACTS' => $contacts,
     ])
         ->where([
             '=ID' => $id,
@@ -24,7 +30,7 @@ try {
         ->get()
         ->rowCount();
 
-    header( "refresh:3;url=/client-product/" );
+    header( "refresh:3;url=/pharmacy/");
 
 } catch (Throwable) {
     include ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/empty.php');
