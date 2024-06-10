@@ -1,43 +1,39 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/lib/vendor/autoload.php');
+include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
 
-use App\Controller\DeleteController;
-use App\Database\MySQL\Models\ProductModel;
-use App\Response\Interface\ResponseTypesInterface;
-use App\Response\ResponseFactory;
 
-$response = ResponseFactory::create(ResponseTypesInterface::JSON);
-
-if ($_SERVER['REQUEST_METHOD'] !== 'DELETE') {
-    $response->setStatusCode(400);
-    $response->setSuccess(false);
-    $response->setMessage('Request method is not supported');
-    $response->send();
-    die();
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !intval($_POST['id'])) {
+    die('Wrong request method');
 }
 
-$input = file_get_contents('php://input');
-$data = json_decode($input);
+$id = intval($_POST['id']);
+$clientProductModel = new \App\Database\MySQL\Models\ClientProductModel();
 
 try {
-    $deleteController = new DeleteController($data, new ProductModel());
-    $result = $deleteController->process();
-    if (!$result) {
-        $response->setStatusCode(409);
-        $response->setSuccess(true);
-        $response->setMessage('Deletion failed');
-        $response->send();
-    }
+    $delete = $clientProductModel->delete([
+        '=ID' => $id
+    ])
+        ->exec()
+        ->get()
+        ->rowCount();
 
-    $response->setStatusCode(200);
-    $response->setSuccess(true);
-    $response->setData(['deletedRowsCount' => $result]);
-    $response->send();
+    header( "refresh:3;url=/client-product/");
 } catch (Throwable $e) {
-    $response = ResponseFactory::create(ResponseTypesInterface::JSON);
-    $response->setStatusCode(500);
-    $response->setSuccess(false);
-    $response->setMessage('Something went wrong');
-    $response->send();
+    include ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/empty.php');
+    die();
 }
+?>
+<div class="container mx-auto my-auto">
+    <?php if (!$delete): ?>
+        <div class="container mx-auto my-auto text-danger text-uppercase text-center border border-danger">
+            Something went wrong or requested data was not found.
+        </div>
+    <?php else: ?>
+        <div class="container mx-auto my-auto text-success text-uppercase text-center border border-success">
+            Done
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php'); ?>

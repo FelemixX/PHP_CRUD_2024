@@ -128,8 +128,11 @@ final readonly class SQLGenerator
                 '!', '!=' => '<>',  //Обратная совместимость, все дела
                 default => $conditionOperator,
             };
-
-            $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator ?" : "$conditionLeft $replacedOperator ?";
+            if (empty($this->query->select->fields)) {
+                $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator ?" : "$conditionLeft $replacedOperator ?";
+            } else {
+                $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator $conditionRight" : "$conditionLeft $replacedOperator $conditionRight";
+            }
         }
 
         $conditionsString = implode(' AND ', $conditionsArray);

@@ -48,33 +48,33 @@ $rows = $modalRows = array_keys($items[array_key_first($items)]);
                         <th scope="row">
                             <?= $item['ID'] ?>
                         </th>
-                        <td class="border border-success" data-value-row-number="1" data-disabled="true">
+                        <td class="border border-success">
                             <?= $item['CLIENT_ID'] ?>
                         </td>
-                        <td class="border border-success" data-value-row-number="2">
+                        <td class="border border-success">
                             <?= $item['CLIENT_NAME'] ?>
                         </td>
-                        <td class="border border-success" data-value-row-number="3">
+                        <td class="border border-success">
                             <?= $item['CLIENT_PHONE'] ?>
                         </td>
-                        <td class="border border-success" data-value-row-number="4" data-disabled="true">
+                        <td class="border border-success">
                             <?= $item['PRODUCT_ID'] ?>
                         </td>
-                        <td class="border border-success" data-value-row-number="5">
+                        <td class="border border-success">
                             <?= $item['PRODUCT_NAME'] ?>
                         </td>
-                        <td class="border border-success" data-value-row-number="6">
+                        <td class="border border-success">
                             <?= $item['PRODUCT_PRICE'] ?>
                         </td>
                         <td class="border border-success">
-                            <button type="button" class="btn btn-success" disabled>
+                            <a href="/client-product/update.php?id=<?= $item['ID'] ?>&client_id=<?= $item['CLIENT_ID'] ?>&product_id=<?= $item['PRODUCT_ID'] ?>" class="btn btn-success">
                                 Изменить
-                            </button>
+                            </a>
                         </td>
                         <td class="border border-success">
-                            <button type="button" class="btn btn-danger" disabled>
+                            <a href="/client-product/delete.php?id=<?= $item['ID'] ?>&client_id=<?= $item['CLIENT_ID'] ?>&product_id=<?= $item['PRODUCT_ID'] ?>" class="btn btn-danger" disabled>
                                 Удалить
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -82,9 +82,9 @@ $rows = $modalRows = array_keys($items[array_key_first($items)]);
             </table>
         </div>
         <div class="d-flex flex-row-reverse">
-            <button type="button" class="btn btn-primary" disabled>
-                Создать
-            </button>
+            <a href="/client-product/create.php" class="btn btn-primary">
+                Добавить
+            </a>
         </div>
     </div>
 <?php else: ?>

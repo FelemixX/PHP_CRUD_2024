@@ -212,22 +212,13 @@ abstract class BaseModel extends Base
     public function exec(): object
     {
         $sql = $this->generateSql();
+
         if (SQLDataHelper::DEBUG) {
             file_put_contents($_SERVER["DOCUMENT_ROOT"] . "/current_query.log", "\n" . date('d-m-Y H:i:s', time()) . ' ' . __FILE__ . ':' . __LINE__ . ' : ' . "\n" . var_export($sql,true) . "\n-------------------\n", FILE_APPEND); //TODO: DELETE LOGGING
         }
 
         if (!empty($this->query->insert->fields) || !empty($this->query->delete->fields) || !empty($this->query->update->fields)) {
             $this->executeBindingQuery($sql);
-
-            return $this;
-        }
-
-        if (!empty($this->query->where->fields)) {
-            $query = $this->connection->prepare($sql);
-            $filterValues = array_values($this->query->where->fields);
-            $filterValues = array_map(fn($value): string => empty($value) ? 'NULL' : $value, $filterValues);
-
-            $this->dbResult = $query->execute($filterValues);
 
             return $this;
         }
