@@ -73,6 +73,31 @@
                             Corporation
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/classification/">
+                            Classification
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/employee/">
+                            Employee
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/logistics/">
+                            Logistics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/manufacturer/">
+                            Manufacturer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/rating/">
+                            Rating
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

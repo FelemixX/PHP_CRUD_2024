@@ -14,6 +14,11 @@ class CreateController extends Base
     public function __construct(protected object $requestValues, protected BaseModel $model)
     {
         $this->fields = $this->prepareFields((array)$this->requestValues);
+        foreach ($this->fields as $idx => $field) {
+            $this->fields[$this->model::getTableName() . '.' . $idx] = $field;
+            unset($this->fields[$idx]);
+        }
+
         if (empty($this->fields)) {
             throw new \InvalidArgumentException('Fields can not be empty');
         }
