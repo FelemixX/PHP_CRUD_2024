@@ -37,7 +37,11 @@ final readonly class SQLGenerator
             return $sql . $selection . $from;
         }
 
-        $selection = implode(', ', $this->query->select->fields);
+        $selectFields = [];
+        foreach ($this->query->select->fields as $value) {
+            $selectFields[] = !preg_match('/^\w+\./', $value) ? "$this->tableName.$value" : $value;
+        }
+        $selection = implode(', ', $selectFields);
 
         return $sql . $selection . $from;
     }
@@ -128,8 +132,11 @@ final readonly class SQLGenerator
                 '!', '!=' => '<>',  //Обратная совместимость, все дела
                 default => $conditionOperator,
             };
-
-            $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator ?" : "$conditionLeft $replacedOperator ?";
+            if (empty($this->query->select->fields)) {
+                $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator ?" : "$conditionLeft $replacedOperator ?";
+            } else {
+                $conditionsArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $conditionLeft) ? "$this->tableName.$conditionLeft $replacedOperator $conditionRight" : "$conditionLeft $replacedOperator $conditionRight";
+            }
         }
 
         $conditionsString = implode(' AND ', $conditionsArray);
@@ -156,7 +163,7 @@ final readonly class SQLGenerator
 
         if (SQLDataHelper::checkAssocArray($this->query->sort->fields)) {
             foreach ($this->query->sort->fields as $field => $order) {
-                $ordersArray[] = !$joinIsEmpty && !preg_match('/^\w+\./', $order) ? "$this->tableName.$field $order" : "$field $order";
+                $ordersArray[] = "$field $order";
             }
         } else {
             foreach ($this->query->sort->fields as $order) {

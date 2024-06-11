@@ -213,18 +213,12 @@ abstract class BaseModel extends Base
     {
         $sql = $this->generateSql();
 
-        if (!empty($this->query->insert->fields) || !empty($this->query->delete->fields) || !empty($this->query->update->fields)) {
-            $this->executeBindingQuery($sql);
-
-            return $this;
+        if (SQLDataHelper::DEBUG) {
+            file_put_contents($_SERVER["DOCUMENT_ROOT"] . "/current_query.log", "\n" . date('d-m-Y H:i:s', time()) . ' ' . __FILE__ . ':' . __LINE__ . ' : ' . "\n" . var_export($sql,true) . "\n-------------------\n", FILE_APPEND); //TODO: DELETE LOGGING
         }
 
-        if (!empty($this->query->where->fields)) {
-            $query = $this->connection->prepare($sql);
-            $filterValues = array_values($this->query->where->fields);
-            $filterValues = array_map(fn($value): string => empty($value) ? 'NULL' : $value, $filterValues);
-
-            $this->dbResult = $query->execute($filterValues);
+        if (!empty($this->query->insert->fields) || !empty($this->query->delete->fields) || !empty($this->query->update->fields)) {
+            $this->executeBindingQuery($sql);
 
             return $this;
         }
@@ -244,12 +238,21 @@ abstract class BaseModel extends Base
         $db = $this->connection->prepare($sql);
         switch ($this->query) {
             case !empty($this->query->insert->fields):
+                if (SQLDataHelper::DEBUG) {
+                    file_put_contents($_SERVER["DOCUMENT_ROOT"] . "/current_query.log", "\n" . date('d-m-Y H:i:s', time()) . ' ' . __FILE__ . ':' . __LINE__ . ' : ' . "\n" . var_export(array_values($this->query->insert->fields),true) . "\n-------------------\n", FILE_APPEND); //TODO: DELETE LOGGING
+                }
                 $db->execute(array_values($this->query->insert->fields));
                 break;
             case !empty($this->query->delete->fields):
+                if (SQLDataHelper::DEBUG) {
+                    file_put_contents($_SERVER["DOCUMENT_ROOT"] . "/current_query.log", "\n" . date('d-m-Y H:i:s', time()) . ' ' . __FILE__ . ':' . __LINE__ . ' : ' . "\n" . var_export(array_values($this->query->delete->fields),true) . "\n-------------------\n", FILE_APPEND); //TODO: DELETE LOGGING
+                }
                 $db->execute(array_values($this->query->delete->fields));
                 break;
             case !empty($this->query->update->fields):
+                if (SQLDataHelper::DEBUG) {
+                    file_put_contents($_SERVER["DOCUMENT_ROOT"] . "/current_query.log", "\n" . date('d-m-Y H:i:s', time()) . ' ' . __FILE__ . ':' . __LINE__ . ' : ' . "\n" . var_export(array_values($this->query->update->fields),true) . "\n-------------------\n", FILE_APPEND); //TODO: DELETE LOGGING
+                }
                 if (empty($this->query->where->fields)) {
                     throw new \InvalidArgumentException('Updating without condition is forbidden');
                 }
@@ -268,6 +271,17 @@ abstract class BaseModel extends Base
         $this->query = $this->instantiateQuery();
 
         return $this->dbResult;
+    }
+
+    /**
+     * @param string $query
+     * @return $this
+     */
+    public function executeQueryByString(string $query): static
+    {
+        $this->dbResult = $this->connection->query($query);
+
+        return $this;
     }
 
     /**

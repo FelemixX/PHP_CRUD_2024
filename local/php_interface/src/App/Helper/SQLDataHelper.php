@@ -4,6 +4,8 @@ namespace App\Helper;
 
 class SQLDataHelper
 {
+    public const DEBUG = false; //Включить отладку
+
     /**
      * @param array $fields
      * @return void

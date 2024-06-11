@@ -1,0 +1,38 @@
+<?php
+
+include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' && !intval($_POST['id'])) {
+    die('Wrong request method');
+}
+
+$id = intval($_POST['id']);
+$pharmacyModel = new \App\Database\MySQL\Models\PharmacyModel();
+
+try {
+    $delete = $pharmacyModel->delete([
+        '=ID' => $id
+    ])
+        ->exec()
+        ->get()
+        ->rowCount();
+
+    header( "refresh:3;url=/pharmacy/");
+} catch (Throwable $e) {
+    include ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/empty.php');
+    die();
+}
+?>
+<div class="container mx-auto my-auto">
+    <?php if (!$delete): ?>
+        <div class="container mx-auto my-auto text-danger text-uppercase text-center border border-danger">
+            Something went wrong or requested data was not found.
+        </div>
+    <?php else: ?>
+        <div class="container mx-auto my-auto text-success text-uppercase text-center border border-success">
+            Done
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php'); ?>

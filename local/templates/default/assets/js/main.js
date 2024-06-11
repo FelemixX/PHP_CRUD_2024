@@ -103,8 +103,12 @@ document.addEventListener("DOMContentLoaded", () => {
             modalForm.dataset.action = '';
             modalForm.dataset.id = '';
 
-            modal.querySelectorAll('input:not([data-primary])').forEach(input => {
+            modal.querySelectorAll('input:not([data-primary])')?.forEach(input => {
                 input.disabled = false;
+            });
+
+            modal.querySelectorAll('input')?.forEach(input => {
+                input.placeholder = '';
             });
         });
     }
@@ -156,5 +160,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
             });
+    }
+
+    if (location.pathname !== '/search/' && location.pathname !== '/query/') {
+        const tableHead = document.querySelector('thead');
+        tableHead?.addEventListener('click', (event) => {
+            const target = event.target;
+
+            if (target.tagName !== 'TD') {
+                return;
+            }
+
+            const sortAttr = target?.dataset?.row;
+            if (!sortAttr) {
+                return;
+            }
+
+            let url = new URL(location.href);
+
+            if (url.searchParams.has(sortAttr)) {
+                if (url.searchParams.get(sortAttr) === "asc") {
+                    url.searchParams.set(sortAttr, "desc");
+                } else {
+                    url.searchParams.delete(sortAttr);
+                }
+            } else {
+                url.searchParams.append(sortAttr, "asc");
+            }
+
+            location.replace(url);
+        });
     }
 });
