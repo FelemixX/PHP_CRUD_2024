@@ -15,7 +15,7 @@ $employeeTableName = $employeeModel->getTableName();
 if (!empty($_GET)) {
     $order = $_GET;
 } else {
-    $order = ['FULL_NAME' => 'DESC', 'ID' => 'ASC', "$pharmacyTableName.NAME" => 'DESC'];
+    $order = ['FULL_NAME' => 'DESC', 'ID' => 'ASC'];
 }
 
 $employee = $employeeModel->select([

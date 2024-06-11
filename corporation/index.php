@@ -1,11 +1,19 @@
-<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php') ?>
-
 <?php
+
+include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
+
 $corporationModel = new \App\Database\MySQL\Models\CorporationModel();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['NAME' => 'ASC', 'ID' => 'ASC'];
+}
+
 $corporations = $corporationModel->select(['ID', 'NAME', 'ACTUAL_OWNER', 'CONTACTS'])
-    ->order(['NAME' => 'ASC', 'ID' => 'ASC'])
+    ->order($order)
     ->exec();
+
 $corpData = $corporations->get()->fetchAll(PDO::FETCH_ASSOC);
 $rows = $modalRows = array_keys($corpData[array_key_first($corpData)]);
 ?>
@@ -16,7 +24,7 @@ $rows = $modalRows = array_keys($corpData[array_key_first($corpData)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>

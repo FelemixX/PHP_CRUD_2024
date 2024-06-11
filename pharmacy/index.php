@@ -14,6 +14,12 @@ $pharmacyTableName = $pharmacyModel::getTableName();
 $corporationTableName = $corporationModel::getTableName();
 $cityTableName = $cityModel::getTableName();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['NAME' => 'DESC', 'ID' => 'ASC'];
+}
+
 $pharmacy = $pharmacyModel->select([
     'ID',
     'NAME',
@@ -26,7 +32,7 @@ $pharmacy = $pharmacyModel->select([
     'CORPORATION_NAME' => "$corporationTableName.NAME",
     'CORPORATION_ACTUAL_OWNER' => "$corporationTableName.ACTUAL_OWNER",
 ])
-    ->order(['NAME' => 'DESC', 'ID' => 'ASC'])
+    ->order($order)
     ->join(AbstractModel::JOIN_TYPE_INNER, $corporationTableName , "$corporationTableName.ID", "$pharmacyTableName.CORPORTATION_FK")
     ->join(AbstractModel::JOIN_TYPE_INNER, $cityTableName, "$cityTableName.ID", "$pharmacyTableName.CITY_FK")
     ->exec();
@@ -41,7 +47,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>

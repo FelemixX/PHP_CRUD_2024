@@ -1,10 +1,17 @@
 <?php
+
 include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
 
 $manufacturerModel = new \App\Database\MySQL\Models\ManufacturerModel();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['NAME' => 'ASC', 'ID' => 'ASC'];
+}
+
 $manufacturer = $manufacturerModel->select(['ID', 'NAME', 'CONTACTS'])
-    ->order(['NAME' => 'ASC', 'ID' => 'ASC'])
+    ->order($order)
     ->exec();
 
 $data = $manufacturer->get()->fetchAll(PDO::FETCH_ASSOC);
@@ -17,7 +24,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>

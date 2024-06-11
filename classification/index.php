@@ -3,10 +3,16 @@
 <?php
 $classificationModel = new \App\Database\MySQL\Models\ClassificationModel();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ["{$classificationModel::getTableName()}.GROUP" => 'ASC', 'ID' => 'ASC'];
+}
 
-$classification = $classificationModel->select(['ID', "{$classificationModel::getTableName()}.GROUP", 'PRESCRIPTION'])
-    ->order(["{$classificationModel::getTableName()}.GROUP" => 'ASC', 'ID' => 'ASC'])
+$classification = $classificationModel->select(['ID', 'PHARMA_GROUP' => "{$classificationModel::getTableName()}.GROUP", 'PRESCRIPTION'])
+    ->order($order)
     ->exec();
+
 $data = $classification->get()->fetchAll(PDO::FETCH_ASSOC);
 $rows = $modalRows = array_keys($data[array_key_first($data)]);
 ?>
@@ -17,7 +23,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>
@@ -31,7 +37,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                             <?= $client['ID'] ?>
                         </th>
                         <td class="border border-success" data-value-row-number="1">
-                            <?= $client['GROUP'] ?>
+                            <?= $client['PHARMA_GROUP'] ?>
                         </td>
                         <td class="border border-success" data-value-row-number="2">
                             <?= $client['PRESCRIPTION'] ?>

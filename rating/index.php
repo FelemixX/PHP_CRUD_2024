@@ -10,6 +10,11 @@ $pharmacyModel = new \App\Database\MySQL\Models\PharmacyModel();
 $ratingTableName = $ratingModel->getTableName();
 $pharmacyTableName = $pharmacyModel::getTableName();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['GRADE' => 'DESC', 'ID' => 'ASC'];
+}
 
 $rating = $ratingModel->select([
     'ID',
@@ -18,7 +23,7 @@ $rating = $ratingModel->select([
     'PHARMACY_NAME' => "$pharmacyTableName.NAME",
     'PHARMACY_ADDRESS' => "$pharmacyTableName.ADDRESS",
 ])
-    ->order(['GRADE' => 'DESC', 'ID' => 'ASC'])
+    ->order($order)
     ->join(AbstractModel::JOIN_TYPE_INNER, $pharmacyTableName , "$pharmacyTableName.ID", "$ratingTableName.ID_PHARMACY")
     ->exec();
 
@@ -32,7 +37,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>

@@ -1,10 +1,17 @@
-<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php') ?>
-
 <?php
+
+include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
+
 $clientModel = new \App\Database\MySQL\Models\ClientModel();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['FULL_NAME' => 'ASC', 'ID' => 'ASC'];
+}
+
 $clients = $clientModel->select(['ID', 'FULL_NAME', 'PHONE_NUMBER'])
-    ->order(['FULL_NAME' => 'ASC', 'ID' => 'ASC'])
+    ->order($order)
     ->exec();
 
 $clientsData = $clients->get()->fetchAll(PDO::FETCH_ASSOC);
@@ -17,7 +24,7 @@ $rows = $modalRows = array_keys($clientsData[array_key_first($clientsData)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>

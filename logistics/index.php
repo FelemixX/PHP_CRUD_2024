@@ -2,8 +2,14 @@
 
 $logisticsModel = new \App\Database\MySQL\Models\LogisticsModel();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['NAME' => 'ASC', 'ID' => 'ASC'];
+}
+
 $logistics = $logisticsModel->select(['ID', 'NAME', 'CONTACTS'])
-    ->order(['NAME' => 'ASC', 'ID' => 'ASC'])
+    ->order($order)
     ->exec();
 
 $data = $logistics->get()->fetchAll(PDO::FETCH_ASSOC);
@@ -16,7 +22,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>

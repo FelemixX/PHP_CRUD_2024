@@ -12,6 +12,12 @@ $tableName = $clientProduct::getTableName();
 $clientTableName = ClientModel::getTableName();
 $productTableName = ProductModel::getTableName();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['ID' => 'ASC'];
+}
+
 $data = $clientProduct->select([
     'ID',
     'CLIENT_ID' => "$clientTableName.ID",
@@ -21,6 +27,7 @@ $data = $clientProduct->select([
     'PRODUCT_NAME' => "$productTableName.NAME",
     'PRODUCT_PRICE' => "$productTableName.PRICE",
 ])
+    ->order($order)
     ->join(AbstractModel::JOIN_TYPE_INNER, ProductModel::getTableName(), "$productTableName.ID", "$tableName.ID_PRODUCT")
     ->join(AbstractModel::JOIN_TYPE_INNER, ClientModel::getTableName(), "$clientTableName.ID", "$tableName.ID_CLIENT")
     ->exec();
@@ -35,7 +42,7 @@ $rows = $modalRows = array_keys($items[array_key_first($items)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>

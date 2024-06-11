@@ -4,8 +4,15 @@ include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php')
 
 $productModel = new \App\Database\MySQL\Models\ProductModel();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['NAME' => 'ASC', 'PRICE' => 'DESC', 'ID' => 'ASC'];
+}
+
+
 $products = $productModel->select(['ID', 'NAME', 'PRICE'])
-    ->order(['NAME' => 'ASC', 'PRICE' => 'DESC', 'ID' => 'ASC'])
+    ->order($order)
     ->exec();
 
 $productsData = $products->get()->fetchAll(PDO::FETCH_ASSOC);
@@ -18,7 +25,7 @@ $rows = $modalRows = array_keys($productsData[array_key_first($productsData)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>
