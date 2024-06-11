@@ -1,6 +1,5 @@
-<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php') ?>
+<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
 
-<?php
 $logisticsModel = new \App\Database\MySQL\Models\LogisticsModel();
 
 $logistics = $logisticsModel->select(['ID', 'NAME', 'CONTACTS'])
@@ -71,4 +70,4 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
     var ajaxPath = '/logistics/actions/';
 </script>
 
-<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php') ?>
+<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php'); ?>

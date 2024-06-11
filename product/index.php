@@ -1,6 +1,5 @@
-<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php') ?>
+<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php')
 
-<?php
 $productModel = new \App\Database\MySQL\Models\ProductModel();
 
 $products = $productModel->select(['ID', 'NAME', 'PRICE'])

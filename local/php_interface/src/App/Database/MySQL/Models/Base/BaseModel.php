@@ -274,6 +274,17 @@ abstract class BaseModel extends Base
     }
 
     /**
+     * @param string $query
+     * @return $this
+     */
+    public function executeQueryByString(string $query): static
+    {
+        $this->dbResult = $this->connection->query($query);
+
+        return $this;
+    }
+
+    /**
      * @return string
      * @throws \Exception
      */

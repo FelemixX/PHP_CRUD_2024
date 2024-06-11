@@ -1,6 +1,6 @@
-<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php') ?>
-
 <?php
+include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
+
 $manufacturerModel = new \App\Database\MySQL\Models\ManufacturerModel();
 
 $manufacturer = $manufacturerModel->select(['ID', 'NAME', 'CONTACTS'])
@@ -64,11 +64,11 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
         </div>
     </div>
 <?php else: ?>
-    <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/empty.php' ?>
+    <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/empty.php'; ?>
 <?php endif; ?>
 
 <script>
     var ajaxPath = '/manufacturer/actions/';
 </script>
 
-<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php') ?>
+<?php include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/footer.php'); ?>

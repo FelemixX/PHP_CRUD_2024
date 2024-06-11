@@ -3,7 +3,6 @@
 include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
 
 use App\Database\Model\AbstractModel;
-use App\Database\MySQL\Models\RatingModel;
 
 $ratingModel = new \App\Database\MySQL\Models\RatingModel();
 $pharmacyModel = new \App\Database\MySQL\Models\PharmacyModel();
