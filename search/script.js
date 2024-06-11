@@ -152,7 +152,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     td.classList.add('border');
                     td.classList.add('border-success');
-                    td.classList.add('fw-bold');
                     td.innerHTML = value;
 
                     tr.appendChild(td);
