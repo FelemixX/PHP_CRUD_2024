@@ -28,7 +28,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
 <?php if (!empty($data)): ?>
     <div class="container mx-auto my-auto">
         <div class="table-responsive">
-            <table class="table-hover border border-success text-center align-middle">
+            <table class="table table-hover border border-success text-center align-middle">
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
@@ -45,7 +45,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                         <th scope="row">
                             <?= $item['ID'] ?>
                         </th>
-                        <td class="border border-success" data-value-row-number="1">
+                        <td class="border border-success" data-value-row-number="1" data-disabled="true">
                             <?= $item['GRADE'] ?>
                         </td>
                         <td class="border border-success" data-value-row-number="2">
@@ -54,7 +54,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                         <td class="border border-success" data-value-row-number="3">
                             <?= $item['PHARMACY_NAME'] ?>
                         </td>
-                        <td class="border border-success" data-value-row-number="3">
+                        <td class="border border-success" data-value-row-number="4" data-disabled="true">
                             <?= $item['PHARMACY_ADDRESS'] ?>
                         </td>
                         <td class="border border-success">
