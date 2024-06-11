@@ -8,8 +8,8 @@ $unifiedModel = new \App\Database\MySQL\Models\UnifiedModel();
 
 //SELECT ID, SUM(PRICE) as PRICE_SUM, NAME FROM product
 //EXPLAIN SELECT ID, SUM(PRICE) as PRICE_SUM, NAME FROM product
-//SELECT ID, AVG(PRICE) as PRICE_SUM, NAME FROM product
-//SELECT client_product.ID  AS ID, client.FULL_NAME as CLIENT_NAME, product.NAME  as PRODUCT_NAME, AVG(product.PRICE) as AVG_PRICE, SUM(product.PRICE) as PRODUCT_PRICE_SUM FROM client_product INNER JOIN client ON client_product.ID_CLIENT = client.ID INNER JOIN product ON client_product.ID_PRODUCT = product.ID GROUP BY client.ID ORDER BY AVG_PRICE DESC
+//SELECT ID, AVG(PRICE) as AVG_PRICE, NAME FROM product
+//SELECT client_product.ID  AS ID, client.FULL_NAME as CLIENT_NAME, product.NAME  as PRODUCT_NAME, AVG(product.PRICE) as AVG_PRICE, SUM(product.PRICE) as SUM_PRICE FROM client_product INNER JOIN client ON client_product.ID_CLIENT = client.ID INNER JOIN product ON client_product.ID_PRODUCT = product.ID GROUP BY client.ID ORDER BY SUM_PRICE DESC
 
 if ($_GET['sql']) {
     try {
