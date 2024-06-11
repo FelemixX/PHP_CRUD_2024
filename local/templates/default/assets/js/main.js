@@ -161,4 +161,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
             });
     }
+
+    if (location.pathname !== '/search/') {
+        const tableHead = document.querySelector('thead');
+        tableHead.addEventListener('click', (event) => {
+            const target = event.target;
+
+            if (target.tagName !== 'TD') {
+                return;
+            }
+
+            const sortAttr = target?.dataset?.row;
+            if (!sortAttr) {
+                return;
+            }
+
+            let url = new URL(location.href);
+
+            if (url.searchParams.has(sortAttr)) {
+                if (url.searchParams.get(sortAttr) === "asc") {
+                    url.searchParams.set(sortAttr, "desc");
+                } else {
+                    url.searchParams.delete(sortAttr);
+                }
+            } else {
+                url.searchParams.append(sortAttr, "asc");
+            }
+
+            location.replace(url);
+        });
+    }
 });

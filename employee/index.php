@@ -12,6 +12,12 @@ $pharmacyModel = new \App\Database\MySQL\Models\PharmacyModel();
 $pharmacyTableName = $pharmacyModel::getTableName();
 $employeeTableName = $employeeModel->getTableName();
 
+if (!empty($_GET)) {
+    $order = $_GET;
+} else {
+    $order = ['FULL_NAME' => 'DESC', 'ID' => 'ASC', "$pharmacyTableName.NAME" => 'DESC'];
+}
+
 $employee = $employeeModel->select([
     'ID',
     'FULL_NAME',
@@ -20,7 +26,7 @@ $employee = $employeeModel->select([
     'PHARMACY_NAME' => "$pharmacyTableName.NAME",
     'PHARMACY_ADDRESS' => "$pharmacyTableName.ADDRESS",
 ])
-    ->order(['FULL_NAME' => 'DESC', 'ID' => 'ASC'])
+    ->order($order)
     ->join(AbstractModel::JOIN_TYPE_INNER, $pharmacyTableName , "$pharmacyTableName.ID", "$employeeTableName.PHARMACY_FK")
     ->exec();
 
@@ -34,7 +40,7 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                 <thead>
                 <tr>
                     <?php foreach ($rows as $row): ?>
-                        <td class="border border-success fw-bold">
+                        <td class="border border-success fw-bold user-select-none" data-row="<?= $row ?>">
                             <?= $row ?>
                         </td>
                     <?php endforeach; ?>
@@ -49,6 +55,9 @@ $rows = $modalRows = array_keys($data[array_key_first($data)]);
                         </th>
                         <td class="border border-success" data-value-row-number="1">
                             <?= $item['FULL_NAME'] ?>
+                        </td>
+                        <td class="border border-success" data-value-row-number="1">
+                            <?= $item['POST'] ?>
                         </td>
                         <td class="border border-success" data-value-row-number="2">
                             <?= $item['PHARMACY_ID'] ?>
