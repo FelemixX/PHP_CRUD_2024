@@ -162,9 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
-    if (location.pathname !== '/search/') {
+    if (location.pathname !== '/search/' && location.pathname !== '/query/') {
         const tableHead = document.querySelector('thead');
-        tableHead.addEventListener('click', (event) => {
+        tableHead?.addEventListener('click', (event) => {
             const target = event.target;
 
             if (target.tagName !== 'TD') {

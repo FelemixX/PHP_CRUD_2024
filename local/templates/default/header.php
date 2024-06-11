@@ -103,6 +103,11 @@
                             Search
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/query/">
+                            Query
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

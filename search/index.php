@@ -1,6 +1,5 @@
 <?php
 
-use App\Database\MySQL\Models\Base\BaseModel;
 
 include_once ($_SERVER['DOCUMENT_ROOT'] . '/local/templates/default/header.php');
 
